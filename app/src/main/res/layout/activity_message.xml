@@ -1,32 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
-    tools:context="com.lgq.fruitgrower.view.act.MessageActivity">
+    android:layout_height="match_parent" tools:context="com.lgq.fruitgrower.view.act.MainFragment">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" >
-            <TextView
+
+        <RelativeLayout
+            android:layout_width="match_parent" android:layout_height="80dp"
+            android:background="#fbf9f9">
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="消息"
 
-                android:layout_gravity="center"
-                android:id="@+id/toolbar_title"
-                android:textColor="#040404"
-                android:textSize="@dimen/abc_text_size_title_material_toolbar" />
-        </android.support.v7.widget.Toolbar>
+                android:id="@+id/imageView2"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentEnd="false" />
 
-    </android.support.design.widget.AppBarLayout>
+            <TextView
 
-    <include layout="@layout/content_message" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="留言"
+                android:id="@+id/textView2"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_toRightOf="@+id/imageView2"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:layout_alignParentBottom="false"
+                android:layout_marginStart="94dp"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/ic_media_play"
+                android:paddingRight="15dp"
+                android:layout_centerVertical="true" />
 
 
+        </RelativeLayout>
+        <include layout="@layout/line" />
+        <RelativeLayout
+            android:layout_width="match_parent" android:layout_height="80dp"
+            android:background="#fbf9f9">
 
-</android.support.design.widget.CoordinatorLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/imageView2"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentEnd="false" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="收到的赞"
+                android:id="@+id/textView2"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_toRightOf="@+id/imageView2"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:layout_alignParentBottom="false"
+                android:layout_marginStart="94dp"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/ic_media_play"
+                android:paddingRight="15dp"
+                android:layout_centerVertical="true" />
+
+
+        </RelativeLayout>
+        <include layout="@layout/line" />
+
+    </LinearLayout>
+
+</FrameLayout>
+

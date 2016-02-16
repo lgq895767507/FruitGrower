@@ -1,22 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
-    tools:context="com.lgq.fruitgrower.view.act.ClassifyActivity">
+    android:layout_height="match_parent" tools:context="com.lgq.fruitgrower.view.act.MainFragment">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentBottom="false">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
 
-    </android.support.design.widget.AppBarLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="您的位置："
+                android:id="@+id/textView3" />
 
-    <include layout="@layout/content_classify" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="上海市浦东新区张江镇"
+                android:id="@+id/textView" />
+        </LinearLayout>
 
 
 
-</android.support.design.widget.CoordinatorLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/imageView3"
+            android:src="@android:drawable/ic_menu_gallery" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="选择您的位置"
+            android:id="@+id/textView4"
+            android:layout_below="@+id/imageView3"
+            android:layout_alignStart="@+id/imageView3"
+            android:layout_marginTop="5dp" />
+
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#b2b2b2">
+
+        </View>
+
+        <GridView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gridLoc"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:columnWidth="90dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:gravity="center">
+        </GridView>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="选择待售还是收购"
+            android:id="@+id/textView5"
+            android:layout_marginTop="15dp" />
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#b2b2b2">
+
+        </View>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="待售"
+                android:id="@+id/button6"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收购"
+                android:id="@+id/button7"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="go"
+            android:id="@+id/button8"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="30dp" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

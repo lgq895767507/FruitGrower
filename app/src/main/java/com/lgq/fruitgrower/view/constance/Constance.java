@@ -1,4 +1,4 @@
-package com.lgq.fruitgrower.model.constance;
+package com.lgq.fruitgrower.view.constance;
 
 /**
  * Created by lgq on 16-1-30.

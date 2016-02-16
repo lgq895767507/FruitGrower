@@ -1,34 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
-    tools:context="com.lgq.fruitgrower.view.act.OwnerActivity">
+    android:layout_height="match_parent" tools:context="com.lgq.fruitgrower.view.act.MainFragment">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+    <!-- TODO: Update blank fragment layout -->
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" >
-            <TextView
+    <LinearLayout
+        android:background="#e0dddd"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent" android:layout_height="80dp"
+            android:background="#fbf9f9">
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我的"
 
-                android:layout_gravity="center"
-                android:id="@+id/toolbar_title"
-                android:textColor="#040404"
-                android:textSize="@dimen/abc_text_size_title_material_toolbar" />
-        </android.support.v7.widget.Toolbar>
+                android:id="@+id/imageView2"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentEnd="false" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textView2"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="false"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_toRightOf="@+id/imageView2"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/button2"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#e0dddd">
+        </TextView>
+        <include layout="@layout/owner" />
+        <include layout="@layout/line" />
+        <include layout="@layout/owner" />
+        <include layout="@layout/line" />
+        <include layout="@layout/owner" />
+        <include layout="@layout/line" />
+        <include layout="@layout/owner" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#e0dddd">
+        </TextView>
+        <include layout="@layout/owner" />
 
 
 
-    </android.support.design.widget.AppBarLayout>
+    </LinearLayout>
 
-    <include layout="@layout/content_owner" />
-
-
-
-</android.support.design.widget.CoordinatorLayout>
+</FrameLayout>
