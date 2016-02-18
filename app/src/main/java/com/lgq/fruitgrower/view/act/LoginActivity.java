@@ -57,21 +57,6 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Bmob.initialize(this, "1e2c0a6ba014146ecf54552f56ee0c64");
-        consumer = new Consumer();
-        consumer.setName("899999");
-        consumer.setPassword("11111111");
-        consumer.signUp(LoginActivity.this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "sign successed", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                Toast.makeText(getApplicationContext(), "sign failed::" + i, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);

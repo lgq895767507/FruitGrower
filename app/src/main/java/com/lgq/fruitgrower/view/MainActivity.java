@@ -14,10 +14,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.lgq.fruitgrower.R;
+import com.lgq.fruitgrower.model.beans.Consumer;
 import com.lgq.fruitgrower.view.act.FragmentController;
 import com.lgq.fruitgrower.view.act.PublicActivity;
+import com.lgq.fruitgrower.view.utils.ToastUtils;
+
+import org.json.JSONArray;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindCallback;
+import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,View.OnClickListener
         ,NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +56,38 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
         initView();
+
+
+
+
+        queryData();
+
+
+
+    }
+    public void queryData(){
+        BmobQuery query = new BmobQuery("Consumer");
+        query.findObjects(this, new FindListener<Consumer>() {
+
+            @Override
+            public void onSuccess(List<Consumer> arg0) {
+                //注意：查询的结果是JSONArray,需要自行解析
+                for (Consumer consumer : arg0){
+                    System.out.println(consumer.getObjectId());
+                    System.out.println(consumer.getCreatedAt());
+                    System.out.println(consumer.getName());
+                }
+
+                ToastUtils.showToast(getApplication(),"查询成功:" + arg0.get(0).getName(), Toast.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                ToastUtils.showToast(getApplication(),"查询成功:" +s, Toast.LENGTH_SHORT);
+            }
+
+
+        });
     }
     private void openDrawerToggle(String title){
         toolbar.setTitle(title);

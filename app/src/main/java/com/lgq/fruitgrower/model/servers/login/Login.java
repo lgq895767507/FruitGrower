@@ -25,17 +25,17 @@ public class Login implements ILogin{
                 {
                     e.printStackTrace();
                 }
-                //模拟登录成功
-                if ("zhy".equals(mPhone) && "123".equals(mPassword))
-                {
-                    Consumer consumer = new Consumer();
-                    consumer.setPhone(mPhone);
-                    consumer.setPassword(mPassword);
-                    loginListener.loginSuccess(consumer);
-                } else
-                {
-                    loginListener.loginFailed();
-                }
+//                //模拟登录成功
+//                if ("zhy".equals(mPhone) && "123".equals(mPassword))
+//                {
+//                    Consumer consumer = new Consumer();
+//                    consumer.setPhone(mPhone);
+//                    consumer.setPassword(mPassword);
+//                    loginListener.loginSuccess(consumer);
+//                } else
+//                {
+//                    loginListener.loginFailed();
+//                }
             }
         }.start();
     }

@@ -1,7 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.lgq.fruitgrower.view.act.MainFragment">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -18,6 +21,7 @@
             android:layout_gravity="center_vertical">
 
             <TextView
+                android:paddingLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -40,49 +44,55 @@
             android:id="@+id/imageView3"
             android:src="@android:drawable/ic_menu_gallery" />
 
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#b2b2b2">
 
+        </View>
         <TextView
+            android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="选择您的位置"
             android:id="@+id/textView4"
-            android:layout_below="@+id/imageView3"
-            android:layout_alignStart="@+id/imageView3"
+            android:layout_below="@+id/view_line"
+            android:layout_alignStart="@+id/view_line"
             android:layout_marginTop="5dp" />
+
+
+
+
+            <com.lgq.fruitgrower.view.widget.WrapHeightGridView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gridLoc"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="4"
+                android:stretchMode="columnWidth"
+                android:gravity="center">
+            </com.lgq.fruitgrower.view.widget.WrapHeightGridView>
+
 
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#b2b2b2">
 
         </View>
-
-        <GridView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/gridLoc"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:columnWidth="90dp"
-            android:numColumns="auto_fit"
-            android:stretchMode="columnWidth"
-            android:gravity="center">
-        </GridView>
-
         <TextView
-
+            android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="选择待售还是收购"
             android:id="@+id/textView5"
-            android:layout_marginTop="15dp" />
-        <View android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#b2b2b2">
+            android:paddingTop="5dp"
+            />
 
-        </View>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -116,6 +126,8 @@
 
 
     </LinearLayout>
+
+    </ScrollView>
 
 
 </FrameLayout>

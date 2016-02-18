@@ -7,19 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.view.adapter.GridLocAdapter;
 import com.lgq.fruitgrower.view.base.BaseFragment;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
+import com.lgq.fruitgrower.view.widget.WrapHeightGridView;
 
 import java.util.ArrayList;
 
 public class ClassifyFragment extends BaseFragment {
     private View view;
-    private GridView gridView;
+    private WrapHeightGridView gridView;
     private GridLocAdapter gridLocAdapter;
     private ArrayList<String> locNames;
     @Nullable
@@ -37,11 +37,12 @@ public class ClassifyFragment extends BaseFragment {
 
     private void initView() {
         view = View.inflate(activity, R.layout.activity_classify,null);
-        gridView = (GridView) view.findViewById(R.id.gridLoc);
+        gridView = (WrapHeightGridView) view.findViewById(R.id.gridLoc);
         locNames = new ArrayList<String>();
         loadData();
         gridLocAdapter = new GridLocAdapter(getContext(),locNames);
         gridView.setAdapter(gridLocAdapter);
+        gridLocAdapter.notifyDataSetChanged();
         gridView.setOnItemClickListener(new ItemClickListener());
     }
     class ItemClickListener implements AdapterView.OnItemClickListener{
