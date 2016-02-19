@@ -66,7 +66,7 @@ public class MessageFragment extends BaseFragment {
 
             @Override
             public void onError(int i, String s) {
-                ToastUtils.showToast(getContext(), "查询成功:" + s, Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getContext(), "无法连接网络:" + s, Toast.LENGTH_SHORT);
             }
 
 

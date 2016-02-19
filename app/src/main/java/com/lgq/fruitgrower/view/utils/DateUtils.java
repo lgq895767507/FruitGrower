@@ -18,7 +18,7 @@ public class DateUtils {
 
     public static String getShortTime(String dateStr) {
         String str = "";
-        
+
      //   SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {

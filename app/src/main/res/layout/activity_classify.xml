@@ -1,10 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.lgq.fruitgrower.view.act.MainFragment">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView" >
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/scrollView" >-->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -38,96 +38,97 @@
 
 
 
-        <ImageView
+        <com.amap.api.maps.MapView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/imageView3"
-            android:src="@android:drawable/ic_menu_gallery" />
-
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#b2b2b2">
-
-        </View>
-        <TextView
-            android:paddingLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="选择您的位置"
-            android:id="@+id/textView4"
-            android:layout_below="@+id/view_line"
-            android:layout_alignStart="@+id/view_line"
-            android:layout_marginTop="5dp" />
-
-
-
-
-            <com.lgq.fruitgrower.view.widget.WrapHeightGridView
-
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <!--
+            <View
+                android:id="@+id/view_line"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/gridLoc"
-                android:verticalSpacing="10dp"
-                android:horizontalSpacing="10dp"
-                android:numColumns="4"
-                android:stretchMode="columnWidth"
-                android:gravity="center">
-            </com.lgq.fruitgrower.view.widget.WrapHeightGridView>
+                android:layout_height="1dp"
+                android:background="#b2b2b2">
 
-
-        <View android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#b2b2b2">
-
-        </View>
-        <TextView
-            android:paddingLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="选择待售还是收购"
-            android:id="@+id/textView5"
-            android:paddingTop="5dp"
-            />
-
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <Button
+            </View>
+            <TextView
+                android:paddingLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待售"
-                android:id="@+id/button6"
-                android:layout_weight="1" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="选择您的位置"
+                android:id="@+id/textView4"
+                android:layout_below="@+id/view_line"
+                android:layout_alignStart="@+id/view_line"
+                android:layout_marginTop="5dp" />
 
-            <Button
+
+
+
+                <com.lgq.fruitgrower.view.widget.WrapHeightGridView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/gridLoc"
+                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="10dp"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center">
+                </com.lgq.fruitgrower.view.widget.WrapHeightGridView>
+
+
+            <View android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#b2b2b2">
+
+            </View>
+            <TextView
+                android:paddingLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="收购"
-                android:id="@+id/button7"
-                android:layout_weight="1" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="选择待售还是收购"
+                android:id="@+id/textView5"
+                android:paddingTop="5dp"
+                />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="待售"
+                    android:id="@+id/button6"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收购"
+                    android:id="@+id/button7"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="go"
+                android:id="@+id/button8"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="30dp" />
+
+
         </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="go"
-            android:id="@+id/button8"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="30dp" />
-
-
-    </LinearLayout>
-
-    </ScrollView>
-
+        </ScrollView>
+    -->
 
 </FrameLayout>
