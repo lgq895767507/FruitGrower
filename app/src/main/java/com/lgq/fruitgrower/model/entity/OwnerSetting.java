@@ -1,4 +1,4 @@
-package com.lgq.fruitgrower.model.beans;
+package com.lgq.fruitgrower.model.entity;
 
 
 /**

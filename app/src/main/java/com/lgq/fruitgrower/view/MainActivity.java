@@ -60,35 +60,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
 
-        queryData();
-
-
 
     }
-    public void queryData(){
-        BmobQuery query = new BmobQuery("Consumer");
-        query.findObjects(this, new FindListener<Consumer>() {
 
-            @Override
-            public void onSuccess(List<Consumer> arg0) {
-                //注意：查询的结果是JSONArray,需要自行解析
-                for (Consumer consumer : arg0){
-                    System.out.println(consumer.getObjectId());
-                    System.out.println(consumer.getCreatedAt());
-                    System.out.println(consumer.getName());
-                }
-
-                ToastUtils.showToast(getApplication(),"查询成功:" + arg0.get(0).getName(), Toast.LENGTH_SHORT);
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                ToastUtils.showToast(getApplication(),"查询成功:" +s, Toast.LENGTH_SHORT);
-            }
-
-
-        });
-    }
     private void openDrawerToggle(String title){
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);

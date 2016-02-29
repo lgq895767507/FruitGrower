@@ -2,29 +2,17 @@ package com.lgq.fruitgrower.view.act;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.lgq.fruitgrower.R;
-import com.lgq.fruitgrower.model.beans.Consumer;
-import com.lgq.fruitgrower.model.beans.OwnerSetting;
+import com.lgq.fruitgrower.model.entity.OwnerSetting;
 import com.lgq.fruitgrower.view.adapter.OwnerAdapter;
 import com.lgq.fruitgrower.view.base.BaseFragment;
-import com.lgq.fruitgrower.view.utils.ToastUtils;
 import com.lgq.fruitgrower.view.widget.WrapHeightListView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
 
 public class OwnerFragment extends BaseFragment {
 

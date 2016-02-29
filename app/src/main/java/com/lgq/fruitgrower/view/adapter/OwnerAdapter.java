@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lgq.fruitgrower.R;
-import com.lgq.fruitgrower.model.beans.OwnerSetting;
+import com.lgq.fruitgrower.model.entity.OwnerSetting;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
 
 

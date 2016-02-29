@@ -15,6 +15,7 @@
         android:layout_alignParentBottom="false">
 
         <LinearLayout
+
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,8 +33,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="上海市浦东新区张江镇"
-                android:id="@+id/textView" />
+                android:text=""
+                android:maxEms="12"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:id="@+id/tv_loc" />
         </LinearLayout>
 
 

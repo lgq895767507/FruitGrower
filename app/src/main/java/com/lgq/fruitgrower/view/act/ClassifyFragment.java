@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -39,6 +40,8 @@ public class ClassifyFragment extends BaseFragment implements LocationSource,AMa
     //map
     private MapView mapView;
     private AMap aMap;
+
+    private TextView tv_loc;
 
     @Nullable
     @Override
@@ -101,7 +104,7 @@ public class ClassifyFragment extends BaseFragment implements LocationSource,AMa
         //在onCreat方法中给aMap对象赋值
 
         view = View.inflate(activity, R.layout.activity_classify,null);
-
+        tv_loc = (TextView) view.findViewById(R.id.tv_loc);
 
 //        gridView = (WrapHeightGridView) view.findViewById(R.id.gridLoc);
 //        locNames = new ArrayList<String>();
@@ -124,6 +127,16 @@ public class ClassifyFragment extends BaseFragment implements LocationSource,AMa
             mlocationClient.setLocationListener(this);
             //设置为高精度定位模式
             mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            //设置是否返回地址信息（默认返回地址信息）
+            mLocationOption.setNeedAddress(true);
+//设置是否只定位一次,默认为false
+            mLocationOption.setOnceLocation(false);
+//设置是否强制刷新WIFI，默认为强制刷新
+            mLocationOption.setWifiActiveScan(true);
+//设置是否允许模拟位置,默认为false，不允许模拟位置
+            mLocationOption.setMockEnable(false);
+//设置定位间隔,单位毫秒,默认为2000ms
+            mLocationOption.setInterval(2000);
             //设置定位参数
             mlocationClient.setLocationOption(mLocationOption);
             // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
@@ -141,7 +154,7 @@ public class ClassifyFragment extends BaseFragment implements LocationSource,AMa
     public void deactivate() {
         mListener = null;
         if (mlocationClient != null) {
-            mlocationClient.stopLocation();
+            mlocationClient.stopLocation();//停止定位
             mlocationClient.onDestroy();
         }
         mlocationClient = null;
@@ -178,9 +191,11 @@ public class ClassifyFragment extends BaseFragment implements LocationSource,AMa
         if (mListener != null && amapLocation != null) {
             if (amapLocation != null
                     && amapLocation.getErrorCode() == 0) {
+                tv_loc.setText(amapLocation.getAddress());
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode()+ ": " + amapLocation.getErrorInfo();
+                ToastUtils.showToast(getContext(),"定位失败,请检查您的网络",Toast.LENGTH_SHORT);
                 Log.e("AmapErr", errText);
             }
         }
