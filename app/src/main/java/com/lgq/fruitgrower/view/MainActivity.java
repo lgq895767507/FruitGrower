@@ -209,6 +209,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), PublicActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("farmer",true);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 if (rela_layout.getVisibility() == View.VISIBLE) {
                     rela_layout.setVisibility(View.GONE);
@@ -219,6 +222,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), PublicActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("farmer",false);
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 if (rela_layout.getVisibility() == View.VISIBLE) {
                     rela_layout.setVisibility(View.GONE);
