@@ -15,7 +15,6 @@ public class Pubilsh extends BmobObject implements Serializable {
     BmobFile photo;
     String coment;
     Boolean isFarmer;
-    BmobDate time;
     String name;
     String comtent_name;
 
@@ -51,13 +50,6 @@ public class Pubilsh extends BmobObject implements Serializable {
         this.isFarmer = isFarmer;
     }
 
-    public BmobDate getTime() {
-        return time;
-    }
-
-    public void setTime(BmobDate time) {
-        this.time = time;
-    }
 
     public String getName() {
         return name;

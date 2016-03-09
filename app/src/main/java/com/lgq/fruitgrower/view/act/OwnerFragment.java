@@ -5,14 +5,25 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.lgq.fruitgrower.R;
+import com.lgq.fruitgrower.model.beans.Consumer;
 import com.lgq.fruitgrower.model.entity.OwnerSetting;
 import com.lgq.fruitgrower.view.adapter.OwnerAdapter;
 import com.lgq.fruitgrower.view.base.BaseFragment;
+import com.lgq.fruitgrower.view.utils.ToastUtils;
 import com.lgq.fruitgrower.view.widget.WrapHeightListView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.GetListener;
 
 public class OwnerFragment extends BaseFragment {
 
@@ -21,6 +32,11 @@ public class OwnerFragment extends BaseFragment {
     private OwnerAdapter ownerAdapter;
     private WrapHeightListView listView;
 
+    //head
+    private ImageView iv_avatar;
+    private TextView tv_subhead;
+    private TextView tv_caption;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,13 +44,6 @@ public class OwnerFragment extends BaseFragment {
         initView();
         return view;
     }
-
-//    private void initView(List<Consumer> arg0) {
-//        consumers = (ArrayList)arg0;
-//        ownerAdapter = new OwnerAdapter(getContext(),consumers);
-//        listView = (WrapHeightListView) view.findViewById(R.id.lv_user_items);
-//        listView.setAdapter(ownerAdapter);
-//    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -45,34 +54,41 @@ public class OwnerFragment extends BaseFragment {
     }
 //显示数据
     private void showData() {
-//        BmobQuery query = new BmobQuery("Consumer");
-//        query.findObjects(getContext(), new FindListener<Consumer>() {
-//
-//            @Override
-//            public void onSuccess(List<Consumer> arg0) {
-//                //注意：查询的结果是JSONArray,需要自行解析
-//                initView(arg0);
-//
-//                ToastUtils.showToast(getContext(), "查询成功:" , Toast.LENGTH_SHORT);
-//            }
-//
-//            @Override
-//            public void onError(int i, String s) {
-//                ToastUtils.showToast(getContext(),"查询成功:" +s, Toast.LENGTH_SHORT);
-//            }
-//
-//
-//        });
+        BmobQuery<Consumer> query = new BmobQuery<Consumer>();
+        query.getObject(getContext(), "K28rFFFy",new GetListener<Consumer>() {
+
+            @Override
+            public void onFailure(int i, String s) {
+                ToastUtils.showToast(getContext(), "查询失败:" + s, Toast.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onSuccess(Consumer consumer) {
+                setOweHead(consumer);
+
+                ToastUtils.showToast(getContext(), "查询成功:", Toast.LENGTH_SHORT);
+            }
 
 
+        });
+    }
 
+    private void setOweHead(Consumer consumer){
 
-
+            Glide.with(getContext())
+                    .load(consumer.getImg().getFileUrl(getContext()))
+                    .into(iv_avatar);
+        tv_subhead.setText(consumer.getName());
+        tv_caption.setText(consumer.getAddress());
     }
 
     private void initView() {
 
         setData();
+        //head
+        iv_avatar = (ImageView) view.findViewById(R.id.iv_avatar);
+        tv_subhead = (TextView) view.findViewById(R.id.tv_subhead);
+        tv_caption = (TextView) view.findViewById(R.id.tv_caption);
 
         ownerAdapter = new OwnerAdapter(getContext(),ownerSettings);
         listView = (WrapHeightListView) view.findViewById(R.id.lv_user_items);
