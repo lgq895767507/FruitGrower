@@ -1,7 +1,7 @@
 package com.lgq.fruitgrower.view.act;
 
 import android.app.AlertDialog;
-import android.content.ContentResolver;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
-import android.util.Log;
+
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -33,14 +33,17 @@ import com.lgq.fruitgrower.view.utils.ToastUtils;
 
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
+
+
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.bmob.v3.datatype.BmobFile;
+
+
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
@@ -209,8 +212,11 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
                 Im_photo.setImageBitmap(bmp);
                 Im_photo.setVisibility(View.VISIBLE);
                 Im_close.setVisibility(View.VISIBLE);
+
                //保存图片，上传图片
                 uploadImg(path);
+
+
 
             }
         }else if (requestCode == SELECT_CAMER) {
@@ -221,18 +227,23 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
                         Bitmap photo = (Bitmap) bundle.get("data"); //get bitmap
+
                         //取得当前日期时间
                         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
                         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
                         String strDate = formatter.format(curDate);
                         //spath :生成图片取个名字和路径包含类型
                         String spath = "/sdcard/DCIM/Camera/"+strDate+".jpg";
+
+
                         saveImage(photo, spath);
                         Im_photo.setImageBitmap(photo);
                         Im_photo.setVisibility(View.VISIBLE);
                         Im_close.setVisibility(View.VISIBLE);
+
                         //保存图片，上传图片
                         uploadImg(spath);
+
                     } else {
                         Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
                         return;
@@ -254,6 +265,7 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
             e.printStackTrace();
         }
     }
+
     private void uploadImg(String path){
         BmobFile bmobFile = new BmobFile(new File(path));
         publisher.setPhoto(bmobFile);
@@ -274,5 +286,6 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
             }
         });
     }
+
 
 }
