@@ -35,7 +35,8 @@
         android:layout_height="16dp"
         android:id="@+id/Im_close"
         android:layout_below="@+id/tv_content"
-        android:layout_toRightOf="@+id/Im_photo"
+        android:layout_alignRight="@+id/Im_photo"
+        android:layout_alignTop="@+id/Im_photo"
         android:src="@android:drawable/ic_menu_close_clear_cancel"/>
 
     <View
@@ -60,7 +61,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:button="@null"
-            android:background="@android:drawable/ic_menu_gallery"/>
+            android:text="图片"/>
 
         <RadioButton
             android:id="@+id/rb_about"
@@ -69,7 +70,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:button="@null"
-            android:text="(@)" />
+            android:text=" @ " />
 
 
 
@@ -81,7 +82,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:button="@null"
-            android:background="@android:drawable/ic_notification_overlay"/>
+            android:text="表情"/>
 
         <RadioButton
 
@@ -91,7 +92,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:button="@null"
-            android:background="@android:drawable/ic_menu_share" />
+            android:text="分享" />
     </RadioGroup>
 
 

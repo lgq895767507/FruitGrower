@@ -1,35 +1,18 @@
 <!-- TODO: Update blank fragment layout -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_card_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_white2gray_sel"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    >
 
-    <include layout="@layout/include_avatar" />
-
-    <TextView
-        android:id="@+id/tv_content"
-        style="@style/TextViewBody"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
         android:layout_width="match_parent"
-        android:layout_marginTop="-16dp"
-        android:padding="16dp"
-        android:text="从前有个人来到了油坊桥,后来他变成了吴彦祖" />
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"  >
 
-    <include
-        android:id="@+id/include_status_image"
-        layout="@layout/include_status_image"
-        android:visibility="gone" />
+    </android.support.v7.widget.RecyclerView  >
 
-    <include
-        android:id="@+id/include_retweeted_status"
-        layout="@layout/include_retweeted_status"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/ll_bottom_control"
-        layout="@layout/include_status_controlbar" />
-
-</LinearLayout>
+</FrameLayout>
 
 
