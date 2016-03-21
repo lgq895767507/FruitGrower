@@ -49,7 +49,7 @@ public class SignActivity extends BaseAct {
 
         UserLogin userLogin = new UserLogin();
         //设置邮箱
-        if (email.getText().toString() == null){
+        if (email.getText().toString().isEmpty()){
             ToastUtils.showToast(this,"请输入邮箱", Toast.LENGTH_SHORT);
             return;
         }
@@ -61,7 +61,7 @@ public class SignActivity extends BaseAct {
         //设置邮箱
         userLogin.setEmail(email.getText().toString());
         //设置密码
-        if (password.getText().toString() == null || password.getText().length() < 6){
+        if (password.getText().length() < 6){
             ToastUtils.showToast(this,"请入密码，至少6个字符", Toast.LENGTH_SHORT);
             return;
         }
@@ -72,13 +72,13 @@ public class SignActivity extends BaseAct {
             @Override
             public void onSuccess() {
                 intent2Activity(LoginActivity.class);
-                ToastUtils.showToast(getApplicationContext(), "注册成功，请到邮箱验证！", Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getApplicationContext(), "注册成功，请到邮箱验证！", Toast.LENGTH_LONG);
                 finish();
             }
 
             @Override
             public void onFailure(int i, String s) {
-                ToastUtils.showToast(getApplicationContext(), "注册失败" + s, Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getApplicationContext(), "注册失败" + i, Toast.LENGTH_SHORT);
                 Log.i("lgq", "sss+++" + s);
             }
         });

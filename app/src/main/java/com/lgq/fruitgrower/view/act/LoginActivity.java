@@ -1,8 +1,11 @@
 package com.lgq.fruitgrower.view.act;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -70,13 +73,13 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
 
     private void login() {
         UserLogin userLogin = new UserLogin();
-        if (email.getText().toString() == null || email.getText().toString() == ""){
-            ToastUtils.showToast(this,"没有输入邮箱账号", Toast.LENGTH_SHORT);
-            return ;
+        if (email.getText().toString().isEmpty()){
+            ToastUtils.showToast(getApplicationContext(), "没有输入邮箱账号", Toast.LENGTH_SHORT);
+            return;
         }
-        if (password.getText().toString() == null || password.getText().toString() == ""){
-            ToastUtils.showToast(this,"没有输入密码", Toast.LENGTH_SHORT);
-            return ;
+        if (password.getText().toString().isEmpty()){
+            ToastUtils.showToast(getApplicationContext(),"没有输入密码", Toast.LENGTH_SHORT);
+            return;
         }
 
         userLogin.setUsername(email.getText().toString());
@@ -92,15 +95,23 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
                 ToastUtils.showToast(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT);
 
                 //change aoto login values
-                LOGINVERIFIED = true;
+                setSharePre();
 
                 finish();
             }
 
             @Override
             public void onFailure(int i, String s) {
-                ToastUtils.showToast(getApplicationContext(),"登陆失败", Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getApplicationContext(), "登陆失败:"+i, Toast.LENGTH_SHORT);
             }
         });
+    }
+
+    private void setSharePre(){
+        LOGINVERIFIED = true;
+        SharedPreferences sharedPreferences = getSharedPreferences("password", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor  = sharedPreferences.edit();
+        editor.putBoolean("LOGINVERIFIED",LOGINVERIFIED);
+        editor.commit();
     }
 }
