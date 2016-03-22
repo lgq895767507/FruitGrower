@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.UserLogin;
+import com.lgq.fruitgrower.model.constance.Constance;
 import com.lgq.fruitgrower.model.servers.login.Login;
 import com.lgq.fruitgrower.view.MainActivity;
 import com.lgq.fruitgrower.view.base.BaseAct;
@@ -22,13 +23,11 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class LoginActivity extends BaseAct implements View.OnClickListener{
 
-    private Button btn_sign;
+    private TextView btn_sign_email;
+    private TextView btn_sign_phone;
     private TextView email;
     private TextView password;
     private Button email_sign_in_button;
-
-    //sharePreference auto login
-    private static  boolean LOGINVERIFIED = false;
 
 
     @Override
@@ -41,13 +40,15 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
         initView();
 
         //设置监听事件
-        btn_sign.setOnClickListener(this);
+        btn_sign_email.setOnClickListener(this);
         email_sign_in_button.setOnClickListener(this);
+        btn_sign_phone.setOnClickListener(this);
 
     }
 
     private void initView() {
-        btn_sign = (Button) findViewById(R.id.btn_sign);
+        btn_sign_email = (TextView) findViewById(R.id.btn_sign_email);
+        btn_sign_phone = (TextView) findViewById(R.id.btn_sign_phone);
         email = (TextView) findViewById(R.id.email);
         password = (TextView) findViewById(R.id.password);
         email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
@@ -58,9 +59,12 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_sign:
+            case R.id.btn_sign_email:
                 intent2Activity(SignActivity.class);
                 finish();
+                break;
+            case R.id.btn_sign_phone:
+                ToastUtils.showToast(this,"短信注册需要一定的费用，如果你有兴趣不妨小额的支持我，敬请期待。",Toast.LENGTH_LONG);
                 break;
             case R.id.email_sign_in_button:
                 login();
@@ -108,10 +112,10 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
     }
 
     private void setSharePre(){
-        LOGINVERIFIED = true;
+        Constance.LOGINVERIFIED = true;
         SharedPreferences sharedPreferences = getSharedPreferences("password", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor  = sharedPreferences.edit();
-        editor.putBoolean("LOGINVERIFIED",LOGINVERIFIED);
+        editor.putBoolean("LOGINVERIFIED", Constance.LOGINVERIFIED );
         editor.commit();
     }
 }

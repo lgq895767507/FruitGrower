@@ -5,7 +5,7 @@ package com.lgq.fruitgrower.model.constance;
  */
 public class Constance {
 
-
+    public static  boolean LOGINVERIFIED = false;
 
 
 }

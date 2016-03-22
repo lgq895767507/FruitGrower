@@ -63,7 +63,6 @@ public class FlashActivity extends AppCompatActivity {
     private boolean getSharePre(){
         SharedPreferences sharedPreferences = getSharedPreferences("password",Activity.MODE_WORLD_READABLE);
         boolean flag = sharedPreferences.getBoolean("LOGINVERIFIED",false);
-        Log.i("lgq","flag:::"+flag);
         return  flag;
     }
 

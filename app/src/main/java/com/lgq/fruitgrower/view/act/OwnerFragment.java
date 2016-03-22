@@ -1,17 +1,28 @@
 package com.lgq.fruitgrower.view.act;
 
+import android.app.Activity;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Consumer;
+import com.lgq.fruitgrower.model.constance.Constance;
 import com.lgq.fruitgrower.model.entity.OwnerSetting;
 import com.lgq.fruitgrower.view.adapter.OwnerAdapter;
 import com.lgq.fruitgrower.view.base.BaseFragment;
@@ -19,13 +30,11 @@ import com.lgq.fruitgrower.view.utils.ToastUtils;
 import com.lgq.fruitgrower.view.widget.WrapHeightListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 
-public class OwnerFragment extends BaseFragment {
+public class OwnerFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     private View view;
     private ArrayList<OwnerSetting> ownerSettings = new ArrayList<>();
@@ -37,10 +46,16 @@ public class OwnerFragment extends BaseFragment {
     private TextView tv_subhead;
     private TextView tv_caption;
 
+    //ItemOnclick
+    private LinearLayout ll_userinfo;
+
+    //sharePreference auto login
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = View.inflate(activity,R.layout.activity_owner,null);
+        view = View.inflate(activity, R.layout.activity_owner, null);
         initView();
         return view;
     }
@@ -48,14 +63,15 @@ public class OwnerFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden){
+        if (!hidden) {
             showData();
         }
     }
-//显示数据
+
+    //显示数据
     private void showData() {
         BmobQuery<Consumer> query = new BmobQuery<Consumer>();
-        query.getObject(getContext(), "K28rFFFy",new GetListener<Consumer>() {
+        query.getObject(getContext(), "K28rFFFy", new GetListener<Consumer>() {
 
             @Override
             public void onFailure(int i, String s) {
@@ -73,11 +89,11 @@ public class OwnerFragment extends BaseFragment {
         });
     }
 
-    private void setOweHead(Consumer consumer){
+    private void setOweHead(Consumer consumer) {
 
-            Glide.with(getContext())
-                    .load(consumer.getImg().getFileUrl(getContext()))
-                    .into(iv_avatar);
+        Glide.with(getContext())
+                .load(consumer.getImg().getFileUrl(getContext()))
+                .into(iv_avatar);
         tv_subhead.setText(consumer.getName());
         tv_caption.setText(consumer.getAddress());
     }
@@ -90,17 +106,86 @@ public class OwnerFragment extends BaseFragment {
         tv_subhead = (TextView) view.findViewById(R.id.tv_subhead);
         tv_caption = (TextView) view.findViewById(R.id.tv_caption);
 
-        ownerAdapter = new OwnerAdapter(getContext(),ownerSettings);
+        ownerAdapter = new OwnerAdapter(getContext(), ownerSettings);
         listView = (WrapHeightListView) view.findViewById(R.id.lv_user_items);
         listView.setAdapter(ownerAdapter);
+        //onclick
+        listView.setOnItemClickListener(this);
+
         ownerAdapter.notifyDataSetChanged();
+
+        ll_userinfo = (LinearLayout) view.findViewById(R.id.ll_userinfo);
+        ll_userinfo.setOnClickListener(llOnclick);
     }
 
     private void setData() {
-        ownerSettings.add(new OwnerSetting(false,R.mipmap.ic_launcher, "我发布的", ""));
-        ownerSettings.add(new OwnerSetting(false,R.mipmap.ic_launcher, "我的收藏", ""));
-        ownerSettings.add(new OwnerSetting(false,R.mipmap.ic_launcher, "我收到的赞", ""));
-        ownerSettings.add(new OwnerSetting(false,R.mipmap.ic_launcher, "我的评论", ""));
-        ownerSettings.add(new OwnerSetting(true,R.mipmap.ic_launcher, "退出账号", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我发布的", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我的收藏", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我收到的赞", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我的评论", ""));
+        ownerSettings.add(new OwnerSetting(true, R.mipmap.ic_launcher, "退出账号", ""));
+    }
+
+    View.OnClickListener llOnclick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            intent2Activity(OwerDetailsAct.class);
+        }
+    };
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                ToastUtils.showToast(getContext(), "case 0 ", Toast.LENGTH_SHORT);
+                break;
+            case 1:
+                ToastUtils.showToast(getContext(), "case 1 ", Toast.LENGTH_SHORT);
+                break;
+            case 2:
+                ToastUtils.showToast(getContext(), "case 2 ", Toast.LENGTH_SHORT);
+                break;
+            case 3:
+                ToastUtils.showToast(getContext(), "case 3 ", Toast.LENGTH_SHORT);
+                break;
+            case 4:
+                //change login shareference
+                exitApp();
+                break;
+        }
+    }
+
+    private void exitApp() {
+
+        AlertDialog.Builder exitDialog = new AlertDialog.Builder(getContext());
+        exitDialog.setTitle("提示")
+                .setMessage("您确定退出当前用户吗？")
+                .setNegativeButton("取消", new AlertDialog.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do cancle
+                        Log.i("lgq","cancle");
+                        return;
+                    }
+                }).setPositiveButton("确定", new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do finish
+                //first change values
+                changeLoginValuse();
+                getActivity().finish();
+                Log.i("lgq","finish");
+            }
+        }).show();
+
+    }
+
+    private void changeLoginValuse() {
+        Constance.LOGINVERIFIED = false;
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("password", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("LOGINVERIFIED", Constance.LOGINVERIFIED);
+        editor.commit();
     }
 }

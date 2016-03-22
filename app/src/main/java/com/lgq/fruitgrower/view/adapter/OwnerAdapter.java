@@ -69,12 +69,7 @@ public class OwnerAdapter extends BaseAdapter {
 
         holder.v_divider.setVisibility(item.isShowTopDivider() ?
                 View.VISIBLE : View.GONE);
-        holder.ll_content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.showToast(context, "item click position = "+i, Toast.LENGTH_SHORT);
-            }
-        });
+
 
         return view;
     }

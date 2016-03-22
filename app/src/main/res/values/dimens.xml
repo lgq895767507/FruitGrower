@@ -13,4 +13,7 @@
     <dimen name="txtsize_body">14sp</dimen>
     <dimen name="txtsize_subhead">16sp</dimen>
     <dimen name="txtsize_caption">12sp</dimen>
+
+    <!--ower Head-->
+    <dimen name="ower_head">28dp</dimen>
 </resources>

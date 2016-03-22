@@ -80,6 +80,7 @@
 
 
                 <com.lgq.fruitgrower.view.widget.WrapHeightListView
+                    android:listSelector="@android:color/transparent"
                     android:id="@+id/lv_user_items"
                     style="@style/ListViewCommon"
                     android:layout_height="wrap_content"

@@ -30,7 +30,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
     private Context context;
     private ArrayList<Pubilsh> datas;
 
-    public StatusAdapter(Context context,ArrayList<Pubilsh> datas){
+    public StatusAdapter(Context context, ArrayList<Pubilsh> datas) {
         this.datas = datas;
         this.context = context;
     }
@@ -51,7 +51,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             Glide.with(context)
                     .load(datas.get(position).getPhoto().getFileUrl(context))
                     .into(holder.iv_avatar);
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
 //            ToastUtils.showToast(context,"您没有设置头像", Toast.LENGTH_SHORT);
         }
         //设置名字
