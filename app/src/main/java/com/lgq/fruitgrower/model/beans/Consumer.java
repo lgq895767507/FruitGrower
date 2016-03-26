@@ -11,13 +11,25 @@ import cn.bmob.v3.datatype.BmobFile;
  */
 public class Consumer extends BmobObject implements Serializable {
     String name;
-    String grade;
+    String signature;
     String phone;
     String address;
     BmobFile img;
     String password;
+    String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getName() {
+        if(name == null){
+            return "";
+        }
         return name;
     }
 
@@ -25,15 +37,21 @@ public class Consumer extends BmobObject implements Serializable {
         this.name = name;
     }
 
-    public String getGrade() {
-        return grade;
+    public String getSignature() {
+        if (signature == null){
+            return "";
+        }
+        return signature;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     public String getAddress() {
+        if (address == null){
+            return "设置您的地址";
+        }
         return address;
     }
 
@@ -42,6 +60,9 @@ public class Consumer extends BmobObject implements Serializable {
     }
 
     public String getPhone() {
+        if (phone == null){
+            return null;
+        }
         return phone;
     }
 
@@ -58,6 +79,9 @@ public class Consumer extends BmobObject implements Serializable {
     }
 
     public BmobFile getImg() {
+        if (img == null){
+            return null;
+        }
         return img;
     }
 

@@ -27,6 +27,9 @@ public class Pubilsh extends BmobObject implements Serializable {
     }
 
     public BmobFile getPhoto() {
+        if (photo == null){
+            return null;
+        }
         return photo;
     }
 

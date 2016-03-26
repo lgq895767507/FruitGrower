@@ -59,7 +59,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tv_subhead"
                             android:layout_marginTop="8dp"
-                            android:text="没错,我就是油坊桥吴彦祖"
+                            android:text="请设置您的位置"
                             android:textColor="#b2b2b2" />
 
                         <ImageView

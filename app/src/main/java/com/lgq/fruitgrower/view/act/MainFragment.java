@@ -92,7 +92,7 @@ public class MainFragment extends BaseFragment {
                 recycle_view.setAdapter(adapter);
 
 
-                ToastUtils.showToast(getContext(), "查询成功:" + arg0.get(0).getName(), Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getContext(), "查询成功:", Toast.LENGTH_SHORT);
             }
 
             @Override

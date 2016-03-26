@@ -2,9 +2,11 @@ package com.lgq.fruitgrower.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,12 +49,10 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         //设置头像
-        try {
+        if (datas.get(position).getPhoto() != null) {
             Glide.with(context)
                     .load(datas.get(position).getPhoto().getFileUrl(context))
                     .into(holder.iv_avatar);
-        } catch (NullPointerException e) {
-//            ToastUtils.showToast(context,"您没有设置头像", Toast.LENGTH_SHORT);
         }
         //设置名字
         holder.tv_subhead.setText(datas.get(position).getName());
@@ -60,11 +60,14 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         holder.tv_caption.setText(datas.get(position).getCreatedAt());
         //设置内容
         holder.tv_content.setText(datas.get(position).getContent());
-//       //设置图片内容
-//        Glide.with(context)
-//                .load(datas.get(position).getPhoto().getFileUrl(context))
-//                .into(holder.iv_image);
-//        holder.iv_image.setVisibility(View.VISIBLE);
+        //设置图片内容
+        if (datas.get(position).getPhoto() != null) {
+            Glide.with(context)
+                    .load(datas.get(position).getPhoto().getFileUrl(context))
+                    .into(holder.iv_image);
+            holder.include_status_image.setVisibility(View.VISIBLE);
+            holder.iv_image.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -87,6 +90,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         public LinearLayout ll_comment_bottom;
         public LinearLayout ll_like_bottom;
 
+        public FrameLayout include_status_image;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -104,6 +109,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             ll_comment_bottom = (LinearLayout) itemView.findViewById(R.id.ll_comment_bottom);
             ll_like_bottom = (LinearLayout) itemView.findViewById(R.id.ll_like_bottom);
 
+            include_status_image = (FrameLayout) itemView.findViewById(R.id.include_status_image);
         }
     }
 }

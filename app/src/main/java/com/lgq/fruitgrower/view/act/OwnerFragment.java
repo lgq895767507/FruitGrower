@@ -26,12 +26,15 @@ import com.lgq.fruitgrower.model.constance.Constance;
 import com.lgq.fruitgrower.model.entity.OwnerSetting;
 import com.lgq.fruitgrower.view.adapter.OwnerAdapter;
 import com.lgq.fruitgrower.view.base.BaseFragment;
+import com.lgq.fruitgrower.view.utils.SharePreUtils;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
 import com.lgq.fruitgrower.view.widget.WrapHeightListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 
 public class OwnerFragment extends BaseFragment implements AdapterView.OnItemClickListener {
@@ -70,32 +73,38 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
 
     //显示数据
     private void showData() {
+
         BmobQuery<Consumer> query = new BmobQuery<Consumer>();
-        query.getObject(getContext(), "K28rFFFy", new GetListener<Consumer>() {
+        //其他条件的查询
 
+        query.addWhereEqualTo("email", SharePreUtils.getEmailPre(getActivity()));
+        query.findObjects(getContext(), new FindListener<Consumer>() {
             @Override
-            public void onFailure(int i, String s) {
-                ToastUtils.showToast(getContext(), "查询失败:" + s, Toast.LENGTH_SHORT);
+            public void onSuccess(List<Consumer> list) {
+                for (Consumer consumer : list) {
+                    setOweHead(consumer);
+                    ToastUtils.showToast(getContext(), "查询成功:", Toast.LENGTH_SHORT);
+                }
             }
 
             @Override
-            public void onSuccess(Consumer consumer) {
-                setOweHead(consumer);
-
-                ToastUtils.showToast(getContext(), "查询成功:", Toast.LENGTH_SHORT);
+            public void onError(int i, String s) {
+                ToastUtils.showToast(getContext(), "查询失败:" + i, Toast.LENGTH_SHORT);
             }
-
-
         });
+
+
     }
 
     private void setOweHead(Consumer consumer) {
-
-        Glide.with(getContext())
-                .load(consumer.getImg().getFileUrl(getContext()))
-                .into(iv_avatar);
+        if (consumer.getImg() != null) {
+            Glide.with(getContext())
+                    .load(consumer.getImg().getFileUrl(getContext()))
+                    .into(iv_avatar);
+        }
         tv_subhead.setText(consumer.getName());
         tv_caption.setText(consumer.getAddress());
+
     }
 
     private void initView() {
@@ -165,27 +174,17 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //do cancle
-                        Log.i("lgq","cancle");
                         return;
                     }
                 }).setPositiveButton("确定", new AlertDialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //do finish
-                //first change values
-                changeLoginValuse();
+                //clear SharePre
+                SharePreUtils.clear(getContext());
                 getActivity().finish();
-                Log.i("lgq","finish");
             }
         }).show();
 
-    }
-
-    private void changeLoginValuse() {
-        Constance.LOGINVERIFIED = false;
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("password", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("LOGINVERIFIED", Constance.LOGINVERIFIED);
-        editor.commit();
     }
 }

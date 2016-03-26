@@ -20,14 +20,15 @@
         android:paddingTop="@dimen/ower_head">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="头像" />
 
         <ImageView
             android:id="@+id/img_subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@android:drawable/ic_menu_gallery" />
@@ -48,6 +49,7 @@
         android:paddingTop="@dimen/text_margin">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="昵称" />
@@ -77,6 +79,7 @@
         android:paddingTop="@dimen/text_margin">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="个性签名" />
@@ -112,6 +115,7 @@
         android:paddingTop="@dimen/text_margin">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="电话" />
@@ -141,6 +145,7 @@
         android:paddingTop="@dimen/text_margin">
 
         <TextView
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="地址" />

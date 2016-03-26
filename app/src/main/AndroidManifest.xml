@@ -80,6 +80,11 @@
             android:label="@string/title_activity_ower_details"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".view.act.EditAct"
+            android:label="@string/title_activity_edit"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
