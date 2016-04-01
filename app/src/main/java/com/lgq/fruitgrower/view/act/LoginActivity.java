@@ -32,7 +32,7 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
     private TextView password;
     private Button email_sign_in_button;
 
-    private TextView test_web;
+  //  private TextView test_web;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,11 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
         password = (TextView) findViewById(R.id.password);
         email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
 
-        test_web = (TextView) findViewById(R.id.test_web);
+      //  test_web = (TextView) findViewById(R.id.test_web);
 
-        String webLinkText = "<a href=http://www.baidu.com>百度一下</a>" ;
-        test_web.setText(Html.fromHtml(webLinkText));
-        test_web.setMovementMethod(LinkMovementMethod.getInstance());
+     //   String webLinkText = "<a href=http://www.baidu.com>百度一下</a>" ;
+     //   test_web.setText(Html.fromHtml(webLinkText));
+     //   test_web.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 

@@ -20,5 +20,8 @@
 
     <color name="bg_light">#d6d6d6</color>
 
+    <color name="theme">#89c997</color>
+    <color name="themeDark">#7ec48d</color>
+
 
 </resources>

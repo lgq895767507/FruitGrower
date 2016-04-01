@@ -128,11 +128,11 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
     }
 
     private void setData() {
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我发布的", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我的收藏", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我收到的赞", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我的评论", ""));
-        ownerSettings.add(new OwnerSetting(true, R.mipmap.ic_launcher, "退出账号", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.publish, "我发布的", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.saved, "我的收藏", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.like, "我收到的赞", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.message, "我的评论", ""));
+        ownerSettings.add(new OwnerSetting(true, R.mipmap.compose_trendbutton_background, "退出账号", ""));
     }
 
     View.OnClickListener llOnclick = new View.OnClickListener() {

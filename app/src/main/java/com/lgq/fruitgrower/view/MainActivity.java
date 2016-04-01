@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -35,8 +36,8 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindCallback;
 import cn.bmob.v3.listener.FindListener;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,View.OnClickListener
-        ,NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener
+        , NavigationView.OnNavigationItemSelectedListener {
 
     private RadioGroup rg_tab;
     private ImageView iv_add;
@@ -48,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private Button btn_farmer;
     private Button btn_business;
 
+    private RadioButton rb_home;
+    private RadioButton rb_meassage;
+    private RadioButton rb_search;
+    private RadioButton rb_user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +63,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         // view init
 
 
-
         openDrawerToggle("首页");
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//设为竖屏
         controller = FragmentController.getInstance(this, R.id.fl_content);
         controller.showFragment(0);
-
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -73,12 +77,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         initView();
 
 
-
-
-
     }
 
-    private void openDrawerToggle(String title){
+    private void openDrawerToggle(String title) {
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -96,6 +97,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         btn_farmer = (Button) findViewById(R.id.btn_farmer);
         btn_business = (Button) findViewById(R.id.btn_business);
 
+        rb_home = (RadioButton) findViewById(R.id.rb_home);
+        rb_meassage = (RadioButton) findViewById(R.id.rb_meassage);
+        rb_search = (RadioButton) findViewById(R.id.rb_search);
+        rb_user = (RadioButton) findViewById(R.id.rb_user);
+
         rg_tab.setOnCheckedChangeListener(this);
         iv_add.setOnClickListener(this);
 
@@ -107,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (rela_layout != null && rela_layout.getVisibility() == View.VISIBLE){
+        } else if (rela_layout != null && rela_layout.getVisibility() == View.VISIBLE) {
             rela_layout.setVisibility(View.GONE);
             Log.i("lgq", "aaaaa");
         } else {
@@ -164,22 +170,53 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+
+
         switch (checkedId) {
             case R.id.rb_home:
                 controller.showFragment(0);
-                openDrawerToggle("首页");
+                toolbar.setTitle("首页");
+                setSupportActionBar(toolbar);
+                if (rb_home.isChecked()) {
+                    rb_home.setTextColor(getResources().getColor(R.color.theme));
+                    rb_meassage.setTextColor(getResources().getColor(R.color.txt_gray));
+                    rb_search.setTextColor(getResources().getColor(R.color.txt_gray));
+                    rb_user.setTextColor(getResources().getColor(R.color.txt_gray));
+                }
+                //    openDrawerToggle("首页");
                 break;
             case R.id.rb_meassage:
                 controller.showFragment(1);
-                openDrawerToggle("分类");
+                toolbar.setTitle("分类");
+                setSupportActionBar(toolbar);
+                if (rb_meassage.isChecked()) {
+                    rb_meassage.setTextColor(getResources().getColor(R.color.theme));
+                    rb_home.setTextColor(getResources().getColor(R.color.txt_gray));
+                    rb_search.setTextColor(getResources().getColor(R.color.txt_gray));
+                    rb_user.setTextColor(getResources().getColor(R.color.txt_gray));
+                }
                 break;
             case R.id.rb_search:
                 controller.showFragment(2);
-                openDrawerToggle("消息");
+                toolbar.setTitle("消息");
+                setSupportActionBar(toolbar);
+                if (rb_search.isChecked()) {
+                    rb_search.setTextColor(getResources().getColor(R.color.theme));
+                    rb_home.setTextColor(getResources().getColor(R.color.txt_gray));
+                    rb_meassage.setTextColor(getResources().getColor(R.color.txt_gray));
+                    rb_user.setTextColor(getResources().getColor(R.color.txt_gray));
+                }
+                // openDrawerToggle("消息");
                 break;
             case R.id.rb_user:
                 controller.showFragment(3);
                 openDrawerToggle("我的");
+                if (rb_user.isChecked()) {
+                    rb_user.setTextColor(getResources().getColor(R.color.theme));
+                    rb_home.setTextColor(getResources().getColor(R.color.txt_gray));
+                    rb_meassage.setTextColor(getResources().getColor(R.color.txt_gray));
+                    rb_search.setTextColor(getResources().getColor(R.color.txt_gray));
+                }
                 break;
             default:
                 break;
@@ -210,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), PublicActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putBoolean("farmer",true);
+                bundle.putBoolean("farmer", true);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 if (rela_layout.getVisibility() == View.VISIBLE) {
@@ -223,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), PublicActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putBoolean("farmer",false);
+                bundle.putBoolean("farmer", false);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 if (rela_layout.getVisibility() == View.VISIBLE) {

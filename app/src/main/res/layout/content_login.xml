@@ -38,7 +38,7 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_gravity="center_horizontal"
-            android:src="@android:drawable/ic_menu_gallery" />
+            android:src="@mipmap/logo" />
 
 
         <android.support.design.widget.TextInputLayout
@@ -115,14 +115,14 @@
 
     </LinearLayout>
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/test_web"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
         android:text="测试网络"
-        android:textStyle="bold" />
+        android:textStyle="bold" />-->
 
 
 </LinearLayout>

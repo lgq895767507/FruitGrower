@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.lgq.fruitgrower.model.beans.Goods;
 import com.lgq.fruitgrower.model.beans.Pubilsh;
 import com.lgq.fruitgrower.view.adapter.StatusAdapter;
 import com.lgq.fruitgrower.view.base.BaseFragment;
+import com.lgq.fruitgrower.view.utils.RecyclerViewAndSwipeRefreshLayout;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHolder.ItemClick,RecyclerViewAndSwipeRefreshLayout.SwipeRefreshLayoutRefresh{
 
     private RecyclerView recycle_view;
     private View view ;
@@ -42,13 +44,14 @@ public class MainFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view =  View.inflate(activity,R.layout.fragment_main,null);
+        initView();
         return view;
     }
 
     private void initView() {
         recycle_view = (RecyclerView) view.findViewById(R.id.recycle_view);
         layoutManager = new LinearLayoutManager(getContext());
-
+        adapter = new StatusAdapter(this);
 
 
         // improve performance if you know that changes in content
@@ -72,9 +75,10 @@ public class MainFragment extends BaseFragment {
     }
     public void queryData(){
 
-        initView();
+
 
         BmobQuery query = new BmobQuery("Pubilsh");
+        query.setLimit(5);
         query.findObjects(getContext(), new FindListener<Pubilsh>() {
 
             @Override
@@ -88,7 +92,7 @@ public class MainFragment extends BaseFragment {
 //                Comparator cmp = Collections.reverseOrder();
 //                Collections.sort(datas, cmp);
                 //set datas
-                adapter = new StatusAdapter(getContext(),datas);
+
                 recycle_view.setAdapter(adapter);
 
 
@@ -102,5 +106,24 @@ public class MainFragment extends BaseFragment {
 
 
         });
+    }
+
+    //region RecyclerView组件属性
+    RecyclerViewAndSwipeRefreshLayout recyclerViewAndSwipeRefreshLayout;
+    @Override
+    public void swipeRefreshLayoutOnRefresh() {
+        adapter.getDatas().clear();
+        //重新执行业务
+
+    }
+
+    @Override
+    public void onBtnCommentClick(int position) {
+        Log.i("lgq","onBtnCommentClick++++"+position);
+    }
+
+    @Override
+    public void onRootViewClick(int position) {
+        Log.i("lgq","position++++"+position);
     }
 }

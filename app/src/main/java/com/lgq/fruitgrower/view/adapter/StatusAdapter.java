@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,16 +33,22 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
     private Context context;
     private ArrayList<Pubilsh> datas;
 
-    public StatusAdapter(Context context, ArrayList<Pubilsh> datas) {
-        this.datas = datas;
-        this.context = context;
+    MyViewHolder.ItemClick itemClick;
+
+    public ArrayList<Pubilsh> getDatas() {
+        return datas;
+    }
+
+    public StatusAdapter(MyViewHolder.ItemClick itemClick) {
+        this.itemClick = itemClick;
+        datas = new ArrayList<>();
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_card_view, parent,
-                false));
+                false),itemClick);
         return holder;
     }
 
@@ -75,7 +82,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         return datas.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnClickListener {
 
         public ImageView iv_avatar;
         public TextView tv_subhead;
@@ -92,10 +99,23 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
 
         public FrameLayout include_status_image;
 
+        public LinearLayout ll_card_content;
 
-        public MyViewHolder(View itemView) {
+
+        //region 回调接口
+        ItemClick itemClick;
+
+        public interface ItemClick {
+            void onBtnCommentClick(int position);
+
+            void onRootViewClick(int position);
+        }
+        //endregion
+
+        public MyViewHolder(View itemView, ItemClick itemClick) {
             super(itemView);
 
+            this.itemClick = itemClick;
             iv_avatar = (ImageView) itemView.findViewById(R.id.iv_avatar);
             tv_subhead = (TextView) itemView.findViewById(R.id.tv_subhead);
             tv_caption = (TextView) itemView.findViewById(R.id.tv_caption);
@@ -110,6 +130,24 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             ll_like_bottom = (LinearLayout) itemView.findViewById(R.id.ll_like_bottom);
 
             include_status_image = (FrameLayout) itemView.findViewById(R.id.include_status_image);
+            ll_card_content = (LinearLayout) itemView.findViewById(R.id.ll_card_content);
+
+            ll_card_content.setOnClickListener(this);
+            ll_comment_bottom.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v == ll_card_content) {
+                if (itemClick != null) {
+                    itemClick.onBtnCommentClick(getAdapterPosition());
+                }
+            }
+            if (v == ll_comment_bottom) {
+                if (itemClick != null) {
+                    itemClick.onRootViewClick(getAdapterPosition());
+                }
+            }
         }
     }
 }

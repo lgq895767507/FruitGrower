@@ -67,7 +67,7 @@
                             android:layout_height="24dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:src="@android:drawable/ic_media_play" />
+                            android:src="@mipmap/rightarrow" />
                     </RelativeLayout>
                 </LinearLayout>
 

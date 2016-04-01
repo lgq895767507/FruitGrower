@@ -46,7 +46,7 @@
             android:id="@+id/img_enter"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@android:drawable/ic_media_play"/>
+            android:src="@mipmap/rightarrow"/>
     </LinearLayout>
 
     <View
