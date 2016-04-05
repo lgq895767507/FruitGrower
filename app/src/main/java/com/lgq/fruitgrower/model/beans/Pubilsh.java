@@ -17,6 +17,15 @@ public class Pubilsh extends BmobObject implements Serializable {
     Boolean isFarmer;
     String name;
     String comtent_name;
+    String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getContent() {
         return content;

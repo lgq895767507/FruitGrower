@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Consumer;
+import com.lgq.fruitgrower.model.beans.Pubilsh;
 import com.lgq.fruitgrower.model.beans.UserLogin;
 import com.lgq.fruitgrower.view.base.BaseAct;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
@@ -101,7 +102,22 @@ public class SignActivity extends BaseAct {
         consumer.save(this, new SaveListener() {
             @Override
             public void onSuccess() {
-                Log.i("lgq","save email success");
+                Log.i("lgq","save consumer email success");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Log.i("lgq","save email false"+i);
+            }
+        });
+
+        //add email to pubilsh
+        Pubilsh pubilsh = new Pubilsh();
+        pubilsh.setEmail(emails);
+        pubilsh.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+                Log.i("lgq","save pubilsh email success");
             }
 
             @Override

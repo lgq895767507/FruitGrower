@@ -48,7 +48,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_card_view, parent,
-                false),itemClick);
+                false), itemClick);
         return holder;
     }
 
@@ -69,6 +69,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         holder.tv_content.setText(datas.get(position).getContent());
         //设置图片内容
         if (datas.get(position).getPhoto() != null) {
+            Log.i("lgq","position"+position);
             Glide.with(context)
                     .load(datas.get(position).getPhoto().getFileUrl(context))
                     .into(holder.iv_image);
@@ -107,8 +108,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
 
         public interface ItemClick {
             void onBtnCommentClick(int position);
-
+            void onBtnShareClick(int position);
             void onRootViewClick(int position);
+            void onBtnLikeClick(int position);
         }
         //endregion
 
@@ -134,19 +136,34 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
 
             ll_card_content.setOnClickListener(this);
             ll_comment_bottom.setOnClickListener(this);
+            ll_share_bottom.setOnClickListener(this);
+            ll_like_bottom.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v == ll_card_content) {
-                if (itemClick != null) {
-                    itemClick.onBtnCommentClick(getAdapterPosition());
-                }
-            }
-            if (v == ll_comment_bottom) {
-                if (itemClick != null) {
-                    itemClick.onRootViewClick(getAdapterPosition());
-                }
+
+            switch (v.getId()) {
+                case R.id.ll_card_content:
+                    if (itemClick != null) {
+                        itemClick.onRootViewClick(getAdapterPosition());
+                    }
+                    break;
+                case R.id.ll_share_bottom:
+                    if (itemClick != null) {
+                        itemClick.onBtnShareClick(getAdapterPosition());
+                    }
+                    break;
+                case R.id.ll_comment_bottom:
+                    if (itemClick != null) {
+                        itemClick.onBtnCommentClick(getAdapterPosition());
+                    }
+                    break;
+                case R.id.ll_like_bottom:
+                    if (itemClick != null) {
+                        itemClick.onBtnLikeClick(getAdapterPosition());
+                    }
+                    break;
             }
         }
     }
