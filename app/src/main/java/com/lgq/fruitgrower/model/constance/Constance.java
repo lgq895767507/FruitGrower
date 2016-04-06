@@ -37,6 +37,9 @@ public class Constance {
      * sharePref表中位置的key
      */
     public static final String address = "address";
-
+    /**
+     * SharePre表中在加载consumer网络数据的时候，只初始化的时候加载一次
+     */
+    public static final String ONFLAG = "onflag";
 
 }

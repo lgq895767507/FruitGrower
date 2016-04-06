@@ -32,7 +32,6 @@ public class DataServers {
     public void selectByEmail() {
     //查找对应的objectId,注意：修改数据只能通过objectId来修改，目前不提供查询条件方式的修改方法。
         BmobQuery<Pubilsh> query = new BmobQuery<Pubilsh>();
-        query.setLimit(10);
         Log.i("lgq","now email::::"+SharePreUtils.getEmailPre(context));
         query.addWhereEqualTo("email", SharePreUtils.getEmailPre(context));
 

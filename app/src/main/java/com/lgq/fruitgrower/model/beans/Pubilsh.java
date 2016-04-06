@@ -18,6 +18,18 @@ public class Pubilsh extends BmobObject implements Serializable {
     String name;
     String comtent_name;
     String email;
+    BmobFile img;
+
+    public BmobFile getImg() {
+        if (img == null){
+            return null;
+        }
+        return img;
+    }
+
+    public void setImg(BmobFile img) {
+        this.img = img;
+    }
 
     public String getEmail() {
         return email;

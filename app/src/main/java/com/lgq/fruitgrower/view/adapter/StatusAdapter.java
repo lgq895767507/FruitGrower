@@ -1,6 +1,8 @@
 package com.lgq.fruitgrower.view.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,10 +58,14 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         //设置头像
-        if (datas.get(position).getPhoto() != null) {
+        if (datas.get(position).getImg() != null) {
+            Log.i("lgq","position"+position);
             Glide.with(context)
                     .load(datas.get(position).getPhoto().getFileUrl(context))
                     .into(holder.iv_avatar);
+        }else {
+            Bitmap defaultImg = BitmapFactory.decodeResource(this.context.getResources(),R.mipmap.logo);
+            holder.iv_avatar.setImageBitmap(defaultImg);
         }
         //设置名字
         holder.tv_subhead.setText(datas.get(position).getName());
@@ -75,6 +81,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
                     .into(holder.iv_image);
             holder.include_status_image.setVisibility(View.VISIBLE);
             holder.iv_image.setVisibility(View.VISIBLE);
+        }else {
+            holder.include_status_image.setVisibility(View.GONE);
+            holder.iv_image.setVisibility(View.GONE);
         }
     }
 
