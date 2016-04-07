@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Goods;
 import com.lgq.fruitgrower.model.beans.Pubilsh;
@@ -34,7 +35,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
     //获取上下文
     private Context context;
     private ArrayList<Pubilsh> datas;
-
+    //缩放比例
+    private static int scaleInt = 1;
     MyViewHolder.ItemClick itemClick;
 
     public ArrayList<Pubilsh> getDatas() {
@@ -73,11 +75,13 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         holder.tv_caption.setText(datas.get(position).getCreatedAt());
         //设置内容
         holder.tv_content.setText(datas.get(position).getContent());
-        //设置图片内容
+        //设置图片内容,并缓存图片和缩略图片，增强应用的性能增强。
         if (datas.get(position).getPhoto() != null) {
             Log.i("lgq","position"+position);
             Glide.with(context)
                     .load(datas.get(position).getPhoto().getFileUrl(context))
+                    .thumbnail(scaleInt)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.iv_image);
             holder.include_status_image.setVisibility(View.VISIBLE);
             holder.iv_image.setVisibility(View.VISIBLE);

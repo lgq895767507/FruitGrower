@@ -89,6 +89,8 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
 
             @Override
             public void onError(int i, String s) {
+                //若没有网络的时候，显示本地的数据
+                localViewShow();
                 ToastUtils.showToast(getContext(), "查询失败:" + i, Toast.LENGTH_SHORT);
             }
         });
@@ -100,11 +102,20 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
         if (consumer.getImg() != null) {
             Glide.with(getContext())
                     .load(consumer.getImg().getFileUrl(getContext()))
+                    .thumbnail(0.5f)
                     .into(iv_avatar);
         }
         tv_subhead.setText(consumer.getName());
         tv_caption.setText(consumer.getAddress());
 
+    }
+
+    private void localViewShow(){
+        Glide.with(getContext())
+                .load(SharePreUtils.getEmailPre(getContext(), Constance.imgHeadPath, ""))
+                .into(iv_avatar);
+        tv_subhead.setText(SharePreUtils.getEmailPre(getContext(), Constance.nickname, SharePreUtils.getEmailPre(getContext())));
+        tv_caption.setText(SharePreUtils.getEmailPre(getContext(), Constance.address, ""));
     }
 
     private void initView() {

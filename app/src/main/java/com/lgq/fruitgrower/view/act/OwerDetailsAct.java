@@ -19,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bmob.BmobProFile;
+import com.bmob.btp.callback.UploadListener;
 import com.bumptech.glide.Glide;
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Consumer;
@@ -143,6 +145,10 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
         //if not intent connect,show local view
         showLocView();
         Log.i("lgq", "onResume");
+        //开启子线程来上传数据
+        Thread myThread = new Thread(myRunable);
+        myThread.start();
+
         super.onResume();
     }
     private void showView() {
@@ -164,7 +170,11 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
 
     private void savaSharePre(Consumer consumer) {
         //图片这里可能还存在问题，因为这个url是网上的，所以保存下来肯定也是加载不出来的，想想怎么将图片缓存下来保存在本地。2016.3.16
-        SharePreUtils.setSharePre(this, Constance.imgHeadPath, consumer.getImg().getFileUrl(this));
+        if (consumer.getImg() != null){
+            SharePreUtils.setSharePre(this, Constance.imgHeadPath, consumer.getImg().getFileUrl(getApplication()));
+        }else{
+            SharePreUtils.setSharePre(this, Constance.imgHeadPath, "");
+        }
         SharePreUtils.setSharePre(this, Constance.nickname, consumer.getName());
         SharePreUtils.setSharePre(this, Constance.signature, consumer.getSignature());
         SharePreUtils.setSharePre(this, Constance.phone, consumer.getPhone());
@@ -304,25 +314,28 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     }
 
     private void uploadImg(String path) {
-        BmobFile bmobFile = new BmobFile(new File(path));
+        BmobProFile bmobFile = BmobProFile.getInstance(this);
         //保存图片路径到SharePre
         SharePreUtils.setSharePre(this, "imgHeadPath", path);
         Log.i("lgq", "uploadImg");
-        consumer.setImg(bmobFile);
-        bmobFile.uploadblock(this, new UploadFileListener() {
+
+        bmobFile.upload(path, new UploadListener() {
             @Override
-            public void onSuccess() {
-                ToastUtils.showToast(getApplicationContext(), "上传数据成功", Toast.LENGTH_SHORT);
+            public void onSuccess(String s, String s1, BmobFile bmobFile) {
+                //保存图片
+                consumer.setImg(bmobFile);
+
+                ToastUtils.showToast(getApplication(), "上传成功", Toast.LENGTH_SHORT);
             }
 
             @Override
-            public void onProgress(Integer value) {
-                super.onProgress(value);
+            public void onProgress(int i) {
+
             }
 
             @Override
-            public void onFailure(int i, String s) {
-                ToastUtils.showToast(getApplicationContext(), "上传数据失败" + i+s, Toast.LENGTH_SHORT);
+            public void onError(int i, String s) {
+                ToastUtils.showToast(getApplication(), "上传失败"+i+":"+s, Toast.LENGTH_SHORT);
             }
         });
 
@@ -372,9 +385,9 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     //更新数据
     private void updateData() {
         Log.i("lgq", "getID:::" + objectId+SharePreUtils.getEmailPre(this, Constance.imgHeadPath, ""));
-        BmobFile bmobFile = new BmobFile(new File(SharePreUtils.getEmailPre(this, Constance.imgHeadPath, "")));
-        Log.i("lgq", "bmobFile:" + bmobFile);
-       // consumer.setImg(bmobFile);
+        /* BmobFile bmobFile = new BmobFile(new File(SharePreUtils.getEmailPre(this, Constance.imgHeadPath, "")));
+        consumer.setImg(bmobFile);*/
+        //文件上传的顺序是，先
         consumer.setName(SharePreUtils.getEmailPre(this, Constance.nickname, ""));
         consumer.setSignature(SharePreUtils.getEmailPre(this, Constance.signature, ""));
         consumer.setPhone(SharePreUtils.getEmailPre(this, Constance.phone, ""));
