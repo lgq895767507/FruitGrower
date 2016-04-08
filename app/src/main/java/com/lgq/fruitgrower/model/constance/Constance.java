@@ -42,4 +42,11 @@ public class Constance {
      */
     public static final String ONFLAG = "onflag";
 
+
+    /**
+     * 缩略图的size介于0～1的一个float数
+     */
+    public static final float SizeHalf = 0.5f;
+    public static final float SizeHeadPng = 0.2f;
+
 }

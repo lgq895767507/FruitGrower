@@ -85,7 +85,7 @@
                 android:id="@+id/iv_like_bottom"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/timeline_icon_like" />
+                android:background="@drawable/bg_press_liked" />
 
             <TextView
                 android:id="@+id/tv_like_bottom"

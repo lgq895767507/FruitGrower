@@ -19,6 +19,15 @@ public class Pubilsh extends BmobObject implements Serializable {
     String comtent_name;
     String email;
     BmobFile img;
+    Integer liked;
+
+    public Integer getLiked() {
+        return liked;
+    }
+
+    public void setLiked(Integer liked) {
+        this.liked = liked;
+    }
 
     public BmobFile getImg() {
         if (img == null){

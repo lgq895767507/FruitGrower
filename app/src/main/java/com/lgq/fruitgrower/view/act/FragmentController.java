@@ -10,7 +10,8 @@ import java.util.ArrayList;
 /**
  * Created by lgq on 16-2-16.
  */
-public class FragmentController {
+public class
+        FragmentController {
     private int containerId;
     private FragmentManager fm;
     private ArrayList<Fragment> fragments;

@@ -22,6 +22,8 @@ import com.lgq.fruitgrower.view.utils.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.UpdateListener;
 
 
 public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHolder.ItemClick,RecyclerViewAndSwipeRefreshLayout.SwipeRefreshLayoutRefresh{
@@ -157,6 +159,20 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
 
     @Override
     public void onBtnLikeClick(int position) {
+        Log.i("lgq", "kkk:" + adapter.getDatas().get(position).getObjectId());
+        Pubilsh pubilsh = new Pubilsh();
+        pubilsh.increment("liked");
+        pubilsh.update(getContext(), adapter.getDatas().get(position).getObjectId(),new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                Log.i("lgq","liked");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Log.i("lgq","unliked"+i+"---"+s);
+            }
+        });
         Log.i("lgq","onBtnLikeClick++++"+position);
     }
 

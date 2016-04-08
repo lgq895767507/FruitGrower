@@ -102,7 +102,7 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
         if (consumer.getImg() != null) {
             Glide.with(getContext())
                     .load(consumer.getImg().getFileUrl(getContext()))
-                    .thumbnail(0.5f)
+                    .thumbnail(Constance.SizeHeadPng)
                     .into(iv_avatar);
         }
         tv_subhead.setText(consumer.getName());

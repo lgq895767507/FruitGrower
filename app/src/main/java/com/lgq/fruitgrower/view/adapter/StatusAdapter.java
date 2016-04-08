@@ -3,6 +3,7 @@ package com.lgq.fruitgrower.view.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Goods;
 import com.lgq.fruitgrower.model.beans.Pubilsh;
+import com.lgq.fruitgrower.model.constance.Constance;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
 import com.lgq.fruitgrower.view.widget.WrapHeightGridView;
 
@@ -35,8 +37,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
     //获取上下文
     private Context context;
     private ArrayList<Pubilsh> datas;
-    //缩放比例
-    private static int scaleInt = 1;
+
     MyViewHolder.ItemClick itemClick;
 
     public ArrayList<Pubilsh> getDatas() {
@@ -80,7 +81,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             Log.i("lgq","position"+position);
             Glide.with(context)
                     .load(datas.get(position).getPhoto().getFileUrl(context))
-                    .thumbnail(scaleInt)
+                    .thumbnail(Constance.SizeHalf)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.iv_image);
             holder.include_status_image.setVisibility(View.VISIBLE);
@@ -102,6 +103,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         public TextView tv_subhead;
         public TextView tv_caption;
         public TextView tv_content;
+        public ImageView iv_like_bottom;
 
         public ImageView iv_image;
         public WrapHeightGridView gv_images;
@@ -135,6 +137,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             tv_subhead = (TextView) itemView.findViewById(R.id.tv_subhead);
             tv_caption = (TextView) itemView.findViewById(R.id.tv_caption);
             tv_content = (TextView) itemView.findViewById(R.id.tv_content);
+            iv_like_bottom = (ImageView)itemView.findViewById(R.id.iv_like_bottom);
 
             iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
             gv_images = (WrapHeightGridView) itemView.findViewById(R.id.gv_images);
@@ -174,8 +177,14 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
                     break;
                 case R.id.ll_like_bottom:
                     if (itemClick != null) {
-                        itemClick.onBtnLikeClick(getAdapterPosition());
+                        if (iv_like_bottom.isClickable()) {
+                            iv_like_bottom.setClickable(false);
+                            Log.i("lgq","ll_like_bottom.isEnabled()"+iv_like_bottom.isClickable());
+                            itemClick.onBtnLikeClick(getAdapterPosition());
+                        }
+                        Log.i("lgq","ll_like_bottom.isEnabled()111"+iv_like_bottom.isClickable());
                     }
+                    Log.i("lgq",""+iv_like_bottom.isActivated()+iv_like_bottom.isClickable()+iv_like_bottom.isEnabled()+iv_like_bottom.isFocused());
                     break;
             }
         }
