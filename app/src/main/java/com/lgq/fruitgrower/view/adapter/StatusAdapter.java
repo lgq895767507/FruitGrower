@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,12 +63,12 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
 
         //设置头像
         if (datas.get(position).getImg() != null) {
-            Log.i("lgq","position"+position);
+            Log.i("lgq", "position" + position);
             Glide.with(context)
                     .load(datas.get(position).getPhoto().getFileUrl(context))
                     .into(holder.iv_avatar);
-        }else {
-            Bitmap defaultImg = BitmapFactory.decodeResource(this.context.getResources(),R.mipmap.logo);
+        } else {
+            Bitmap defaultImg = BitmapFactory.decodeResource(this.context.getResources(), R.mipmap.logo);
             holder.iv_avatar.setImageBitmap(defaultImg);
         }
         //设置名字
@@ -78,7 +79,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         holder.tv_content.setText(datas.get(position).getContent());
         //设置图片内容,并缓存图片和缩略图片，增强应用的性能增强。
         if (datas.get(position).getPhoto() != null) {
-            Log.i("lgq","position"+position);
+            Log.i("lgq", "position" + position);
             Glide.with(context)
                     .load(datas.get(position).getPhoto().getFileUrl(context))
                     .thumbnail(Constance.SizeHalf)
@@ -86,7 +87,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
                     .into(holder.iv_image);
             holder.include_status_image.setVisibility(View.VISIBLE);
             holder.iv_image.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.include_status_image.setVisibility(View.GONE);
             holder.iv_image.setVisibility(View.GONE);
         }
@@ -123,8 +124,11 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
 
         public interface ItemClick {
             void onBtnCommentClick(int position);
+
             void onBtnShareClick(int position);
+
             void onRootViewClick(int position);
+
             void onBtnLikeClick(int position);
         }
         //endregion
@@ -137,7 +141,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             tv_subhead = (TextView) itemView.findViewById(R.id.tv_subhead);
             tv_caption = (TextView) itemView.findViewById(R.id.tv_caption);
             tv_content = (TextView) itemView.findViewById(R.id.tv_content);
-            iv_like_bottom = (ImageView)itemView.findViewById(R.id.iv_like_bottom);
+            iv_like_bottom = (ImageView) itemView.findViewById(R.id.iv_like_bottom);
 
             iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
             gv_images = (WrapHeightGridView) itemView.findViewById(R.id.gv_images);
@@ -177,14 +181,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
                     break;
                 case R.id.ll_like_bottom:
                     if (itemClick != null) {
-                        if (iv_like_bottom.isClickable()) {
-                            iv_like_bottom.setClickable(false);
-                            Log.i("lgq","ll_like_bottom.isEnabled()"+iv_like_bottom.isClickable());
-                            itemClick.onBtnLikeClick(getAdapterPosition());
-                        }
-                        Log.i("lgq","ll_like_bottom.isEnabled()111"+iv_like_bottom.isClickable());
+                        itemClick.onBtnLikeClick(getAdapterPosition());
                     }
-                    Log.i("lgq",""+iv_like_bottom.isActivated()+iv_like_bottom.isClickable()+iv_like_bottom.isEnabled()+iv_like_bottom.isFocused());
                     break;
             }
         }

@@ -1,6 +1,7 @@
 package com.lgq.fruitgrower.view.act;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
@@ -149,12 +150,16 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
 
     @Override
     public void onBtnShareClick(int position) {
-        Log.i("lgq","onBtnShareClick++++"+position);
+     //   intent2Activity(CommentActivity.class);
     }
 
     @Override
     public void onBtnCommentClick(int position) {
-        Log.i("lgq","onBtnCommentClick++++"+position);
+        Bundle bundle = new Bundle();
+        bundle.putString("ObjectId", adapter.getDatas().get(position).getObjectId());
+        Intent intent = new Intent(getContext(),CommentActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override
