@@ -35,6 +35,8 @@ public class DataServers {
         //显示所有的public数据
 //        Log.i("lgq","now email::::"+SharePreUtils.getEmailPre(context));
 //        query.addWhereEqualTo("email", SharePreUtils.getEmailPre(context));
+        //降序显示
+        query.order("-createdAt");
 
         query.findObjects(context, new FindListener<Pubilsh>() {
             @Override

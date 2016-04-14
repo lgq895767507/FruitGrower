@@ -17,7 +17,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@null"
-        android:hint="评论的内容..."
+        android:hint="@string/comment_content"
         android:inputType="textMultiLine"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/Im_photo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/comment_img_width"
+        android:layout_height="@dimen/comment_img_height"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_content"
         android:padding="@dimen/activity_horizontal_margin"
@@ -36,8 +36,8 @@
 
     <ImageView
         android:id="@+id/Im_close"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="@dimen/comment_img_clo_widht"
+        android:layout_height="@dimen/comment_img_clo_height"
         android:layout_alignRight="@+id/Im_photo"
         android:layout_alignTop="@+id/Im_photo"
         android:layout_below="@+id/tv_content"
@@ -46,14 +46,14 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="@dimen/view_line"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:background="#8b8a8a" />
+        android:layout_marginBottom="@dimen/public_view_marBtm"
+        android:background="@color/view_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/comment_lr_height"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:gravity="center_vertical"
@@ -67,8 +67,8 @@
 
             <ImageButton
                 android:id="@+id/Ib_photo"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/comment_imgbtn_width"
+                android:layout_height="@dimen/comment_imgbtn_height"
                 android:layout_gravity="center"
                 android:background="@android:drawable/ic_menu_gallery" />
         </LinearLayout>
@@ -82,8 +82,8 @@
 
             <ImageButton
                 android:id="@+id/Ib_contact"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/comment_imgbtn_width"
+                android:layout_height="@dimen/comment_imgbtn_height"
                 android:layout_gravity="center"
                 android:background="@mipmap/compose_trendbutton_background" />
         </LinearLayout>
@@ -96,8 +96,8 @@
 
             <ImageButton
                 android:id="@+id/Ib_emojy"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/comment_imgbtn_width"
+                android:layout_height="@dimen/comment_imgbtn_height"
                 android:layout_gravity="center"
                 android:background="@mipmap/me" />
         </LinearLayout>
@@ -110,8 +110,8 @@
 
             <ImageButton
                 android:id="@+id/Ib_send"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/comment_imgbtn_width"
+                android:layout_height="@dimen/comment_imgbtn_height"
                 android:layout_gravity="center"
                 android:background="@mipmap/timeline_icon_retweet" />
         </LinearLayout>

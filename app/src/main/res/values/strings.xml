@@ -2,6 +2,38 @@
     <string name="app_name">FruitGrower</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">登陆</string>
+    <!--activity string resource-->
+    <string name="locationError">定位失败,请检查您的网络</string>
+    <string name="comtent">写评论</string>
+    <string name="photo">相册</string>
+    <string name="camera">相机</string>
+    <string name="ower_publish">我发布的</string>
+    <string name="ower_saved">我的收藏</string>
+    <string name="ower_liked">我收到的赞</string>
+    <string name="ower_comment">我的评论</string>
+    <string name="exit_login">退出账号</string>
+    <string name="home_page">首页</string>
+    <string name="classify_page">分类</string>
+    <string name="message_page">消息</string>
+    <string name="owner_page">我的</string>
+    <string name="public_content">发布的内容...</string>
+    <string name="sign">注册</string>
+    <string name="comment_content">评论的内容...</string>
+    <string name="email_sign">邮箱注册</string>
+    <string name="phone_sign">手机注册</string>
+    <string name="farmer">农户</string>
+    <string name="businesser">商贩</string>
+    <string name="realy">转发</string>
+    <string name="comment">评论</string>
+    <string name="click_liked">点赞</string>
+    <!--owerSetting-->
+    <string name="nickname">昵称</string>
+    <string name="signature">个性签名</string>
+    <string name="phone">电话</string>
+    <string name="address">地址</string>
+
+    <!--layout string resource-->
+    <string name="your_location">您的位置</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -182,4 +214,8 @@
     <string name="title_activity_ower_details">账户详情</string>
     <string name="title_activity_edit">EditAct</string>
     <string name="title_activity_comment">CommentActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
+
+    <string name="title_packageName">果农</string>
+    <string name="title_activity_owner_public_list">OwnerPublicList</string>
 </resources>

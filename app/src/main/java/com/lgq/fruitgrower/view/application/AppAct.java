@@ -2,6 +2,10 @@ package com.lgq.fruitgrower.view.application;
 
 import android.app.Application;
 
+import com.lgq.fruitgrower.model.CustomImHanlder.MyMessageHandler;
+import com.lgq.fruitgrower.model.constance.Constance;
+
+import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.Bmob;
 
 /**
@@ -9,11 +13,11 @@ import cn.bmob.v3.Bmob;
  */
 public class AppAct extends Application {
 
-    private final static String APP_KEY = "1e2c0a6ba014146ecf54552f56ee0c64";
+
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Bmob.initialize(getApplicationContext(),"1e2c0a6ba014146ecf54552f56ee0c64");
+        Bmob.initialize(getApplicationContext(), Constance.APP_KEY);
     }
 }

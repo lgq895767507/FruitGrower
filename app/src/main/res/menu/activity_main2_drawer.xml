@@ -3,21 +3,21 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="签到" />
         <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="积分" />
         <item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="商城" />
         <item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="省流量模式" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="个性设置">
         <menu>
             <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="接收消息模式" />
             <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="发送消息模式" />
         </menu>
     </item>
 

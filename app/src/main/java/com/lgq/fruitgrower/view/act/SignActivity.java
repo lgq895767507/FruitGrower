@@ -88,7 +88,7 @@ public class SignActivity extends BaseAct {
 
             @Override
             public void onFailure(int i, String s) {
-                ToastUtils.showToast(getApplicationContext(), "注册失败" + i, Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getApplicationContext(), "注册失败" + i+s, Toast.LENGTH_SHORT);
                 Log.i("lgq", "sss+++" + s);
             }
         });

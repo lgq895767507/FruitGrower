@@ -7,12 +7,12 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="@dimen/view_line"
         android:background="@color/divider_gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/status_control_lr_height"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -27,20 +27,20 @@
 
             <ImageView
                 android:id="@+id/iv_share_bottom"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/status_control_img_width"
+                android:layout_height="@dimen/status_control_img_height"
                 android:src="@mipmap/timeline_icon_retweet" />
 
             <TextView
                 android:id="@+id/tv_share_bottom"
                 style="@style/TextViewBody"
-                android:layout_marginLeft="8dp"
-                android:text="转发"
+                android:layout_marginLeft="@dimen/status_control_tv_marleft"
+                android:text="@string/realy"
                 android:textColor="@color/txt_gray" />
         </LinearLayout>
 
         <View
-            android:layout_width="1px"
+            android:layout_width="@dimen/view_line"
             android:layout_height="match_parent"
             android:background="@color/divider_gray" />
 
@@ -55,20 +55,20 @@
 
             <ImageView
                 android:id="@+id/iv_comment_bottom"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/status_control_img_width"
+                android:layout_height="@dimen/status_control_img_height"
                 android:src="@mipmap/timeline_icon_comment" />
 
             <TextView
                 android:id="@+id/tv_comment_bottom"
                 style="@style/TextViewBody"
-                android:layout_marginLeft="8dp"
-                android:text="评论"
+                android:layout_marginLeft="@dimen/status_control_tv_marleft"
+                android:text="@string/comment"
                 android:textColor="@color/txt_gray" />
         </LinearLayout>
 
         <View
-            android:layout_width="1px"
+            android:layout_width="@dimen/view_line"
             android:layout_height="match_parent"
             android:background="@color/divider_gray" />
 
@@ -82,22 +82,22 @@
 
             <ImageView
                 android:id="@+id/iv_like_bottom"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/status_control_img_width"
+                android:layout_height="@dimen/status_control_img_height"
                 android:background="@drawable/bg_press_liked" />
 
             <TextView
                 android:id="@+id/tv_like_bottom"
                 style="@style/TextViewBody"
-                android:layout_marginLeft="8dp"
-                android:text="点赞"
+                android:layout_marginLeft="@dimen/status_control_tv_marleft"
+                android:text="@string/click_liked"
                 android:textColor="@color/txt_gray" />
         </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="@dimen/view_line"
         android:background="@color/divider_gray" />
 
 </LinearLayout>

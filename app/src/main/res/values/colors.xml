@@ -23,5 +23,7 @@
     <color name="theme">#89c997</color>
     <color name="themeDark">#7ec48d</color>
 
+    <color name="view_line">#b2b2b2</color>
+
 
 </resources>

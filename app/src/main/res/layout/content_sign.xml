@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="注册"
+            android:text="@string/sign"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -22,11 +22,11 @@
             android:layout_gravity="center_vertical">
 
             <TextView
-                android:paddingLeft="10dp"
+                android:paddingLeft="@dimen/cf_padlf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="您的位置："
+                android:text="@string/your_location"
                 android:id="@+id/textView3" />
 
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=""
-                android:maxEms="12"
+                android:maxLength="12"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:id="@+id/tv_loc" />

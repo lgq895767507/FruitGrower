@@ -41,7 +41,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("写评论");
+        toolbar.setTitle(getString(R.string.comtent));
         setSupportActionBar(toolbar);
 
         bundle = new Bundle();

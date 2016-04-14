@@ -1,6 +1,7 @@
 package com.lgq.fruitgrower.view.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,17 +20,31 @@ import java.util.ArrayList;
 /**
  * Created by lgq on 16-2-16.
  */
-public class MessageAdapter extends BaseAdapter {
+public class MessageAdapter extends BaseAdapter implements View.OnClickListener{
     private Context context;
     private  ArrayList<Chat> chats;
+    //获取i
+    private  int getI = 0;
 
+    PositionClick positionClick;
 
-    public MessageAdapter(Context context, ArrayList<Chat> chats){
+    public MessageAdapter(Context context, ArrayList<Chat> chats,PositionClick positionClick){
+        this.positionClick = positionClick;
         this.context = context;
         this.chats = chats;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.ll_userinfo){
+            Log.i("lgq","iiiiii:::"+getI);
+            positionClick.positionClick(getI);
+        }
+    }
 
+    public interface PositionClick{
+        void positionClick(int position);
+    }
 
     @Override
     public int getCount() {
@@ -47,7 +62,7 @@ public class MessageAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, ViewGroup viewGroup) {
         final ViewHolder holder;
         if(view == null) {
             holder = new ViewHolder();
@@ -65,6 +80,7 @@ public class MessageAdapter extends BaseAdapter {
         // set data
         Chat item = getItem(i);
 
+        getI = i;
 
         Glide.with(context)
                 .load(item.getOther_img().getFileUrl(context))
@@ -73,12 +89,7 @@ public class MessageAdapter extends BaseAdapter {
         holder.tv_caption.setText(item.getOther_content());
         holder.tv_data.setText(DateUtils.getShortTime(item.getTime().getDate()));
 
-        holder.ll_userinfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.showToast(context, "item click position = "+i, Toast.LENGTH_SHORT);
-            }
-        });
+        holder.ll_userinfo.setOnClickListener(this);
 
         return view;
     }

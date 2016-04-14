@@ -5,7 +5,8 @@ import com.lgq.fruitgrower.model.beans.Consumer;
 /**
  * Created by lgq on 16-1-29.
  */
-public interface ILoginActivity {
+public interface ILoginView {
+
     String getPhone();
 
     String getPassword();

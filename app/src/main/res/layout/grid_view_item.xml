@@ -6,7 +6,7 @@
 
 
     <TextView
-        android:background="#e5e0e0"
+        android:background="@color/bg_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"

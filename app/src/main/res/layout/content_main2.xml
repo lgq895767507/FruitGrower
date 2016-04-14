@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_toLeftOf="@+id/center"
-            android:text="农户" />
+            android:text="@string/farmer" />
 
         <Button
             android:id="@+id/btn_business"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_toRightOf="@+id/center"
-            android:text="商贩" />
+            android:text="@string/businesser" />
     </RelativeLayout>
 
 
@@ -55,9 +55,9 @@
     <RadioGroup
         android:id="@+id/rg_tab"
         android:layout_width="fill_parent"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/main2_rg_height"
         android:layout_gravity="bottom"
-        android:background="#fafafa"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -70,7 +70,7 @@
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:text="首页" />
+            android:text="@string/home_page" />
 
         <RadioButton
             android:id="@+id/rb_meassage"
@@ -80,13 +80,13 @@
             android:drawableTop="@drawable/bg_press_search"
             android:button="@null"
             android:gravity="center"
-            android:text="分类" />
+            android:text="@string/classify_page" />
 
         <ImageView
             android:id="@+id/iv_add"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:padding="8dp"
+            android:layout_width="@dimen/main_img_add_width"
+            android:layout_height="@dimen/main_img_add_height"
+            android:padding="@dimen/main_img_add_padding"
             android:src="@mipmap/public1" />
 
         <RadioButton
@@ -97,7 +97,7 @@
             android:drawableTop="@drawable/bg_press_msg"
             android:button="@null"
             android:gravity="center"
-            android:text="消息" />
+            android:text="@string/message_page" />
 
         <RadioButton
             android:id="@+id/rb_user"
@@ -107,7 +107,7 @@
             android:drawableTop="@drawable/bg_press_me"
             android:button="@null"
             android:gravity="center"
-            android:text="我的" />
+            android:text="@string/owner_page" />
     </RadioGroup>
 
 

@@ -62,7 +62,7 @@ public class RecyclerViewAndSwipeRefreshLayout  implements RecyclerView.OnTouchL
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         //添加分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
+    //    recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
         //设置recyclerView的OnTouchListener
         recyclerView.setOnTouchListener(this);
 

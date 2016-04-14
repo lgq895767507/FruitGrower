@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -139,11 +140,11 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
     }
 
     private void setData() {
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.publish, "我发布的", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.saved, "我的收藏", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.like, "我收到的赞", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.message, "我的评论", ""));
-        ownerSettings.add(new OwnerSetting(true, R.mipmap.compose_trendbutton_background, "退出账号", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.publish, getString(R.string.ower_publish), ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.saved, getString(R.string.ower_saved), ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.like, getString(R.string.ower_liked), ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.message, getString(R.string.ower_comment), ""));
+        ownerSettings.add(new OwnerSetting(true, R.mipmap.compose_trendbutton_background, getString(R.string.exit_login), ""));
     }
 
     View.OnClickListener llOnclick = new View.OnClickListener() {
@@ -157,6 +158,7 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
+                ownerPublic();
                 ToastUtils.showToast(getContext(), "case 0 ", Toast.LENGTH_SHORT);
                 break;
             case 1:
@@ -173,6 +175,10 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
                 exitApp();
                 break;
         }
+    }
+
+    private void ownerPublic(){
+       intent2Activity(OwnerPublicList.class);
     }
 
     private void exitApp() {

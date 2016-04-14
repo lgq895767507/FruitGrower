@@ -195,7 +195,7 @@ public class ClassifyFragment extends BaseFragment implements LocationSource,AMa
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode()+ ": " + amapLocation.getErrorInfo();
-                ToastUtils.showToast(getContext(),"定位失败,请检查您的网络",Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getContext(),getString(R.string.locationError),Toast.LENGTH_SHORT);
                 Log.e("AmapErr", errText);
             }
         }

@@ -10,13 +10,13 @@ import cn.bmob.v3.datatype.BmobFile;
  * Created by lgq on 16-1-29.
  */
 public class Consumer extends BmobObject implements Serializable {
-    String name;
-    String signature;
-    String phone;
-    String address;
-    BmobFile img;
-    String password;
-    String email;
+    private String name;
+    private String signature;
+    private String phone;
+    private String address;
+    private BmobFile img;
+    private String password;
+    private String email;
 
     public String getEmail() {
         return email;
@@ -27,7 +27,7 @@ public class Consumer extends BmobObject implements Serializable {
     }
 
     public String getName() {
-        if(name == null){
+        if (name == null) {
             return "";
         }
         return name;
@@ -38,7 +38,7 @@ public class Consumer extends BmobObject implements Serializable {
     }
 
     public String getSignature() {
-        if (signature == null){
+        if (signature == null) {
             return "";
         }
         return signature;
@@ -49,7 +49,7 @@ public class Consumer extends BmobObject implements Serializable {
     }
 
     public String getAddress() {
-        if (address == null){
+        if (address == null) {
             return "设置您的地址";
         }
         return address;
@@ -60,7 +60,7 @@ public class Consumer extends BmobObject implements Serializable {
     }
 
     public String getPhone() {
-        if (phone == null){
+        if (phone == null) {
             return null;
         }
         return phone;
@@ -79,7 +79,7 @@ public class Consumer extends BmobObject implements Serializable {
     }
 
     public BmobFile getImg() {
-        if (img == null){
+        if (img == null) {
             return null;
         }
         return img;

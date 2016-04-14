@@ -122,13 +122,13 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     //load sharePre
     private void showLocView() {
         Glide.with(getApplicationContext())
-                .load(SharePreUtils.getEmailPre(this, "imgHeadPath", ""))
+                .load(SharePreUtils.getEmailPre(this, Constance.imgHeadPath, ""))
                 .into(img_subhead);
-        tv_nickname.setText(SharePreUtils.getEmailPre(this, "nickname", SharePreUtils.getEmailPre(this)));
+        tv_nickname.setText(SharePreUtils.getEmailPre(this, Constance.nickname, SharePreUtils.getEmailPre(this)));
 
-        tv_signature.setText(SharePreUtils.getEmailPre(this, "signature", ""));
-        tv_phone.setText(SharePreUtils.getEmailPre(this, "phone", ""));
-        tv_address.setText(SharePreUtils.getEmailPre(this, "address", ""));
+        tv_signature.setText(SharePreUtils.getEmailPre(this,Constance.signature, ""));
+        tv_phone.setText(SharePreUtils.getEmailPre(this, Constance.phone, ""));
+        tv_address.setText(SharePreUtils.getEmailPre(this,Constance.address, ""));
     }
 
     //update network
@@ -190,22 +190,22 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
                 selectPhoto();
                 break;
             case R.id.rl_nickname:
-                tag.putString("nickname", "nickname");
+                tag.putString(Constance.nickname, Constance.nickname);
                 intent.putExtras(tag);
                 startActivity(intent);
                 break;
             case R.id.rl_signature:
-                tag.putString("signature", "signature");
+                tag.putString(Constance.signature, Constance.signature);
                 intent.putExtras(tag);
                 startActivity(intent);
                 break;
             case R.id.rl_phone:
-                tag.putString("phone", "phone");
+                tag.putString(Constance.phone,Constance.phone);
                 intent.putExtras(tag);
                 startActivity(intent);
                 break;
             case R.id.rl_address:
-                tag.putString("address", "address");
+                tag.putString(Constance.address, Constance.address);
                 intent.putExtras(tag);
                 startActivity(intent);
                 break;
@@ -213,7 +213,7 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     }
 
     private void selectPhoto() {
-        CharSequence[] items = {"相册", "相机"};
+        CharSequence[] items = {getString(R.string.photo), getString(R.string.camera)};
         new AlertDialog.Builder(this)
                 .setTitle("选择图片来源")
                 .setItems(items, new DialogInterface.OnClickListener() {
@@ -316,7 +316,7 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     private void uploadImg(String path) {
         BmobProFile bmobFile = BmobProFile.getInstance(this);
         //保存图片路径到SharePre
-        SharePreUtils.setSharePre(this, "imgHeadPath", path);
+        SharePreUtils.setSharePre(this,Constance.imgHeadPath, path);
         Log.i("lgq", "uploadImg");
 
         bmobFile.upload(path, new UploadListener() {

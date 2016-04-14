@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         // view init
 
 
-        openDrawerToggle("首页");
+        openDrawerToggle(getString(R.string.home_page));
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//设为竖屏
         controller = FragmentController.getInstance(this, R.id.fl_content);
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         switch (checkedId) {
             case R.id.rb_home:
                 controller.showFragment(0);
-                toolbar.setTitle("首页");
+                toolbar.setTitle(getString(R.string.home_page));
                 setSupportActionBar(toolbar);
                 if (rb_home.isChecked()) {
                     rb_home.setTextColor(getResources().getColor(R.color.theme));
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 break;
             case R.id.rb_meassage:
                 controller.showFragment(1);
-                toolbar.setTitle("分类");
+                toolbar.setTitle(getString(R.string.classify_page));
                 setSupportActionBar(toolbar);
                 if (rb_meassage.isChecked()) {
                     rb_meassage.setTextColor(getResources().getColor(R.color.theme));
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 break;
             case R.id.rb_search:
                 controller.showFragment(2);
-                toolbar.setTitle("消息");
+                toolbar.setTitle(getString(R.string.message_page));
                 setSupportActionBar(toolbar);
                 if (rb_search.isChecked()) {
                     rb_search.setTextColor(getResources().getColor(R.color.theme));
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 break;
             case R.id.rb_user:
                 controller.showFragment(3);
-                openDrawerToggle("我的");
+                openDrawerToggle(getString(R.string.owner_page));
                 if (rb_user.isChecked()) {
                     rb_user.setTextColor(getResources().getColor(R.color.theme));
                     rb_home.setTextColor(getResources().getColor(R.color.txt_gray));

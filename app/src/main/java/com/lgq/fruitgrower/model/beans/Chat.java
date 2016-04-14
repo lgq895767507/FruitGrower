@@ -17,7 +17,15 @@ public class Chat   extends BmobObject implements Serializable {
     private String other_content;
     private BmobFile owe_img;
     private BmobFile other_img;
+    private String email;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getOwn_content() {
         return own_content;

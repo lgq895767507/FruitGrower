@@ -16,4 +16,99 @@
 
     <!--ower Head-->
     <dimen name="ower_head">28dp</dimen>
+
+    <!--activity_classify-->
+    <dimen name="cf_padlf">10dp</dimen>
+
+    <!--activity_owner-->
+    <dimen name="ow_pdtop">4dp</dimen>
+    <dimen name="ow_linerhight">88dp</dimen>
+    <dimen name="ow_img_width">56dp</dimen>
+    <dimen name="ow_img_height">56dp</dimen>
+    <dimen name="ow_rl_pdleft">8dp</dimen>
+    <dimen name="ow_rl_pdtop">8dp</dimen>
+    <dimen name="ow_img_r_width">24dp</dimen>
+    <dimen name="ow_img_r_height">24dp</dimen>
+    <dimen name="view_line">0.5dp</dimen>
+
+    <!--activity_public-->
+    <dimen name="public_img_width">200dp</dimen>
+    <dimen name="public_img_height">200dp</dimen>
+    <dimen name="public_img_cal_width">16dp</dimen>
+    <dimen name="public_img_cal_height">16dp</dimen>
+    <dimen name="public_view_marBtm">50dp</dimen>
+    <dimen name="public_view_height">0.5dp</dimen>
+    <dimen name="public_rg_height">48dp</dimen>
+
+    <!--content_comment-->
+    <dimen name="comment_img_width">200dp</dimen>
+    <dimen name="comment_img_height">200dp</dimen>
+    <dimen name="comment_img_clo_widht">16dp</dimen>
+    <dimen name="comment_img_clo_height">16dp</dimen>
+    <dimen name="comment_lr_height">48dp</dimen>
+    <dimen name="comment_imgbtn_width">32dp</dimen>
+    <dimen name="comment_imgbtn_height">32dp</dimen>
+
+    <!--content_login-->
+    <dimen name="login_img_height">96dp</dimen>
+    <dimen name="login_img_width">96dp</dimen>
+    <dimen name="login_lr_height">28dp</dimen>
+
+    <!--content_main-->
+    <dimen name="main_rg_height">48dp</dimen>
+    <dimen name="main_img_add_width">56dp</dimen>
+    <dimen name="main_img_add_height">40dp</dimen>
+    <dimen name="main_img_add_padding">8dp</dimen>
+    <!--content_main2-->
+    <dimen name="main2_rg_height">52dp</dimen>
+
+    <!--content_owner_details-->
+    <dimen name="owner_details_img_width">48dp</dimen>
+    <dimen name="owner_details_img_height">48dp</dimen>
+
+    <!--include_avatar-->
+    <dimen name="avatar_img_width">40dp</dimen>
+    <dimen name="avatar_img_height">40dp</dimen>
+    <dimen name="avatar_img_marleft">16dp</dimen>
+    <dimen name="avatar_rl_height">72dp</dimen>
+    <dimen name="avatar_rl_padding">16dp</dimen>
+
+    <!--include_retweeted_status-->
+    <dimen name="retweeted_tv_padding">16dp</dimen>
+
+    <!--include_status_controlbar-->
+    <dimen name="status_control_lr_height">40dp</dimen>
+    <dimen name="status_control_img_height">24dp</dimen>
+    <dimen name="status_control_img_width">24dp</dimen>
+    <dimen name="status_control_tv_marleft">8dp</dimen>
+
+    <!--include_status_image-->
+    <dimen name="status_image_gv_width">272dp</dimen>
+    <dimen name="status_image_img_width">200dp</dimen>
+    <dimen name="status_image_img_height">200dp</dimen>
+
+    <!--item_card_view-->
+    <dimen name="card_view_tv_martop">-16dp</dimen>
+    <dimen name="card_view_tv_padding">16dp</dimen>
+
+    <!--message_listview_item-->
+    <dimen name="listview_item_lr_height">68dp</dimen>
+    <dimen name="listview_item_lr_padding">8dp</dimen>
+    <dimen name="listview_item_img_width">56dp</dimen>
+    <dimen name="listview_item_img_height">56dp</dimen>
+    <dimen name="listview_item_rl_pdleft">8dp</dimen>
+    <dimen name="listview_item_rl_pdtop">8dp</dimen>
+
+    <!--owner_listview_item-->
+    <dimen name="owner_item_view_height">8dp</dimen>
+    <dimen name="owner_item_lr_height">48dp</dimen>
+    <dimen name="owner_item_lr_pdleft">16dp</dimen>
+    <dimen name="owner_item_lr_pdright">16dp</dimen>
+    <dimen name="owner_item_img_height">24dp</dimen>
+    <dimen name="owner_item_img_width">24dp</dimen>
+    <dimen name="owner_item_tv_marleft">16dp</dimen>
+
+
+
+
 </resources>

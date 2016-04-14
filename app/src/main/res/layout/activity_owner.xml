@@ -22,20 +22,20 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
-                android:paddingTop="4dp" >
+                android:paddingTop="@dimen/ow_pdtop" >
 
                 <LinearLayout
                     android:id="@+id/ll_userinfo"
                     android:layout_width="match_parent"
-                    android:layout_height="88dp"
+                    android:layout_height="@dimen/ow_linerhight"
 
                     android:orientation="horizontal"
-                    android:padding="16dp" >
+                    android:padding="@dimen/text_margin" >
 
                     <ImageView
                         android:id="@+id/iv_avatar"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
+                        android:layout_width="@dimen/ow_img_width"
+                        android:layout_height="@dimen/ow_img_height"
                         android:layout_gravity="center_vertical"
                         android:scaleType="centerCrop"
                         android:src="@android:drawable/ic_menu_gallery" />
@@ -44,8 +44,8 @@
                         android:id="@+id/rl_content"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingLeft="8dp"
-                        android:paddingTop="8dp" >
+                        android:paddingLeft="@dimen/ow_rl_pdleft"
+                        android:paddingTop="@dimen/ow_rl_pdtop" >
 
                         <TextView
                             android:id="@+id/tv_subhead"
@@ -63,8 +63,8 @@
                             android:textColor="#b2b2b2" />
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/ow_img_r_width"
+                            android:layout_height="@dimen/ow_img_r_height"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:src="@mipmap/rightarrow" />
@@ -73,8 +73,8 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#b2b2b2" />
+                    android:layout_height="@dimen/view_line"
+                    android:background="@color/view_line" />
 
 
 
@@ -84,7 +84,7 @@
                     android:id="@+id/lv_user_items"
                     style="@style/ListViewCommon"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" >
+                    android:layout_marginTop="@dimen/ow_rl_pdtop" >
                 </com.lgq.fruitgrower.view.widget.WrapHeightListView>
             </LinearLayout>
         </ScrollView>

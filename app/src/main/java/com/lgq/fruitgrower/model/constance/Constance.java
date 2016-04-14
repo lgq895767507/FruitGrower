@@ -48,5 +48,9 @@ public class Constance {
      */
     public static final float SizeHalf = 0.5f;
     public static final float SizeHeadPng = 0.2f;
+    /**
+     * APP_KEY for Init bmob
+     */
+    public static final String APP_KEY = "1e2c0a6ba014146ecf54552f56ee0c64";
 
 }
