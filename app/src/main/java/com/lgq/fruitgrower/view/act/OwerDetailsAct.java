@@ -21,9 +21,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Consumer;
+import com.lgq.fruitgrower.model.beans.Pubilsh;
 import com.lgq.fruitgrower.model.constance.Constance;
 import com.lgq.fruitgrower.model.servers.login.ConsumerServers;
 import com.lgq.fruitgrower.model.servers.login.IDataCallBack;
+import com.lgq.fruitgrower.model.servers.login.PublilshServers;
 import com.lgq.fruitgrower.view.base.BaseAct;
 import com.lgq.fruitgrower.view.utils.SharePreUtils;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
@@ -132,12 +134,6 @@ public class OwerDetailsAct extends BaseAct implements View.OnClickListener {
     }
 
     @Override
-    public void onBackPressed() {
-        Log.i("lgq","onbackpressed");
-        super.onBackPressed();
-    }
-
-    @Override
     protected void onResume() {
         //if not intent connect,show local view
         Log.i("lgq","isnet:"+isNetworkAvailable());
@@ -232,25 +228,25 @@ public class OwerDetailsAct extends BaseAct implements View.OnClickListener {
                 tag.putString(Constance.nickname, Constance.nickname);
                 intent.putExtras(tag);
                 startActivity(intent);
-                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
+
                 break;
             case R.id.rl_signature:
                 tag.putString(Constance.signature, Constance.signature);
                 intent.putExtras(tag);
                 startActivity(intent);
-                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
+
                 break;
             case R.id.rl_phone:
-                tag.putString(Constance.phone,Constance.phone);
+                tag.putString(Constance.phone, Constance.phone);
                 intent.putExtras(tag);
                 startActivity(intent);
-                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
+
                 break;
             case R.id.rl_address:
                 tag.putString(Constance.address, Constance.address);
                 intent.putExtras(tag);
                 startActivity(intent);
-                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
+
                 break;
         }
     }
@@ -386,7 +382,45 @@ public class OwerDetailsAct extends BaseAct implements View.OnClickListener {
         consumerServers.setSelectByIdIDataCallBack(selectIDataCallBack);
         //实现业务
         consumerServers.selectByEmail();
+
+        //初始化PublicServers业务
+        PublilshServers publilshServers = new PublilshServers(this);
+        publilshServers.setSelectByIdIDataCallBack(pubilshIDataCallBack);
+        publilshServers.selectByEmail();
     }
+
+    IDataCallBack<Pubilsh> pubilshIDataCallBack = new IDataCallBack<Pubilsh>() {
+        @Override
+        public void dataOnsuccess(List<Pubilsh> objects) {
+
+            Pubilsh pubilsh = new Pubilsh();
+            pubilsh.setName(SharePreUtils.getEmailPre(getApplicationContext(), Constance.nickname, ""));
+            if ( objects.get(0).getObjectId() == null){
+                return;
+            }
+            pubilsh.update(getApplicationContext(), objects.get(0).getObjectId(), new UpdateListener() {
+                @Override
+                public void onSuccess() {
+                    Log.i("lgq","save name to publish success");
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    Log.i("lgq","save name to publish failed. code: "+i+" string:"+s);
+                }
+            });
+        }
+
+        @Override
+        public void dataOnEmpty() {
+
+        }
+
+        @Override
+        public void dataOnError(int code, String msg) {
+
+        }
+    };
 
     //业务实现回调
     IDataCallBack<Consumer> selectIDataCallBack = new IDataCallBack<Consumer>() {
@@ -429,7 +463,7 @@ public class OwerDetailsAct extends BaseAct implements View.OnClickListener {
         consumer.setName(SharePreUtils.getEmailPre(this, Constance.nickname, ""));
         consumer.setSignature(SharePreUtils.getEmailPre(this, Constance.signature, ""));
         consumer.setPhone(SharePreUtils.getEmailPre(this, Constance.phone, ""));
-        Log.i("lgq","address:"+SharePreUtils.getEmailPre(this, Constance.address, ""));
+        Log.i("lgq", "address:" + SharePreUtils.getEmailPre(this, Constance.address, ""));
         consumer.setAddress(SharePreUtils.getEmailPre(this, Constance.address, ""));
         if (objectId == null){
             return;

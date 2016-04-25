@@ -27,6 +27,13 @@ public class
         return controller;
     }
 
+    public static FragmentController getInstance(FragmentActivity activity, int containerId) {
+        if (controller == null) {
+            controller = new FragmentController(activity, containerId);
+        }
+        return controller;
+    }
+
     public static void onDestroy() {
         controller = null;
     }
@@ -34,6 +41,12 @@ public class
     private FragmentController(FragmentActivity activity, int containerId,String tag) {
         this.containerId = containerId;
         this.tag = tag;
+        fm = activity.getSupportFragmentManager();
+        initFragment();
+    }
+
+    private FragmentController(FragmentActivity activity, int containerId) {
+        this.containerId = containerId;
         fm = activity.getSupportFragmentManager();
         initFragment();
     }

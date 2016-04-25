@@ -52,6 +52,10 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(savedInstanceState != null){
+            Log.i("lgq1","return View");
+            return view;
+        }
         view = View.inflate(activity, R.layout.activity_owner, null);
         initView();
         return view;

@@ -130,10 +130,4 @@ public class SignActivity extends BaseAct {
         Matcher m = p.matcher(email);
         return m.matches();
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.out_to_left,R.anim.in_from_right);
-    }
 }

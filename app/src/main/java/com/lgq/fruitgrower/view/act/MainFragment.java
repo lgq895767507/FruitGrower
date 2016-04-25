@@ -1,6 +1,7 @@
 package com.lgq.fruitgrower.view.act;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -43,24 +44,34 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        if(savedInstanceState != null){
+            Log.i("lgq1","return View");
+            return view;
+        }
+
         view =  View.inflate(activity,R.layout.fragment_main,null);
         initView();
         Log.i("lgq1", "MainFragment");
         return view;
     }
 
-    /*@Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            Log.i("lgq1","ownerFragment");
-            //设置SwipeRefreshLayout组件开始显示刷新球
-            recyclerViewAndSwipeRefreshLayout.getSwipeRefreshLayout().setRefreshing(true);
-            //直接调用业务
-            dataServers.selectByEmail();
-        }
+  /*  @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 */
+    /*@Override
+        public void onHiddenChanged(boolean hidden) {
+            super.onHiddenChanged(hidden);
+            if (!hidden) {
+                Log.i("lgq1","ownerFragment");
+                //设置SwipeRefreshLayout组件开始显示刷新球
+                recyclerViewAndSwipeRefreshLayout.getSwipeRefreshLayout().setRefreshing(true);
+                //直接调用业务
+                dataServers.selectByEmail();
+            }
+        }
+    */
     private void initView() {
   //     recycle_view = (RecyclerView) view.findViewById(R.id.recycle_view);
   //     layoutManager = new LinearLayoutManager(getContext());
@@ -110,50 +121,6 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
         }
     };
 
-
-
-  /*  @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden){
-            queryData();
-        }
-    }
-    public void queryData(){
-
-
-
-        BmobQuery query = new BmobQuery("Pubilsh");
-        query.setLimit(5);
-        query.findObjects(getContext(), new FindListener<Pubilsh>() {
-
-            @Override
-            public void onSuccess(final List<Pubilsh> arg0) {
-                //注意：查询的结果是JSONArray,需要自行解析
-                datas = new ArrayList<Pubilsh>();
-                for (Pubilsh pubilsh : arg0){
-                    datas.add(pubilsh);
-                }
-                //倒序
-//                Comparator cmp = Collections.reverseOrder();
-//                Collections.sort(datas, cmp);
-                //set datas
-
-                recycle_view.setAdapter(adapter);
-
-
-                ToastUtils.showToast(getContext(), "查询成功:", Toast.LENGTH_SHORT);
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                ToastUtils.showToast(getContext(),"查询失败:" +s, Toast.LENGTH_SHORT);
-            }
-
-
-        });
-    }*/
-
     @Override
     public void swipeRefreshLayoutOnRefresh() {
         adapter.getDatas().clear();
@@ -175,9 +142,6 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
         startActivity(intent);*/
 
         ((iMainFragment)getActivity()).iCommentClick(adapter.getDatas().get(position).getObjectId());
-
-        Log.i("lgq1","onbtnCommentClick");
-        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
     @Override

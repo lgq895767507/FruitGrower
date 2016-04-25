@@ -32,7 +32,7 @@ public class BaseAct extends AppCompatActivity {
          * enterAnim 定义Activity进入屏幕时的动画
          *exitAnim 定义Activity退出屏幕时的动画
          */
-        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+  //      overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
     public boolean isNetworkAvailable() {

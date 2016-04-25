@@ -87,19 +87,11 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 Thread sendThread = new Thread(myRunnable);
                 sendThread.start();
-                Intent intent = new Intent(getApplication(),MainActivity.class);
-                startActivity(intent);
+
+                finish();
+                overridePendingTransition(R.anim.out_to_left,R.anim.in_from_right);
                 break;
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-    /*    Intent intent = new Intent(getApplication(),MainActivity.class);
-        startActivity(intent);*/
-        Log.i("lgq1","onbackpressed");
-        super.onBackPressed();
-        overridePendingTransition(R.anim.out_to_left,R.anim.in_from_right);
     }
 
     Runnable myRunnable = new Runnable() {

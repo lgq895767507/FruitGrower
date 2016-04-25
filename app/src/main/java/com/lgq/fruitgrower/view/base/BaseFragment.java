@@ -37,7 +37,7 @@ public class BaseFragment extends Fragment {
          * enterAnim 定义Activity进入屏幕时的动画
          *exitAnim 定义Activity退出屏幕时的动画
          */
-        activity.overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
+   //     activity.overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
     }
 
     public boolean isNetworkAvailable() {
