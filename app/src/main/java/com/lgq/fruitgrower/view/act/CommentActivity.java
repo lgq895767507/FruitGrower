@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -84,19 +85,21 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 if (bundle == null){
                     break;
                 }
-
                 Thread sendThread = new Thread(myRunnable);
                 sendThread.start();
+                Intent intent = new Intent(getApplication(),MainActivity.class);
+                startActivity(intent);
                 break;
         }
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplication(),MainActivity.class);
-        startActivity(intent);
-        finish();
+    /*    Intent intent = new Intent(getApplication(),MainActivity.class);
+        startActivity(intent);*/
+        Log.i("lgq1","onbackpressed");
         super.onBackPressed();
+        overridePendingTransition(R.anim.out_to_left,R.anim.in_from_right);
     }
 
     Runnable myRunnable = new Runnable() {
@@ -107,9 +110,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
             pubilsh.update(getApplicationContext(), bundle.getString("ObjectId"), new UpdateListener() {
                 @Override
                 public void onSuccess() {
-                    ToastUtils.showToast(getApplicationContext(),"已评论", Toast.LENGTH_SHORT);
-                    Intent intent = new Intent(getApplication(),MainActivity.class);
-                    startActivity(intent);
+                    ToastUtils.showToast(getApplicationContext(), "已评论", Toast.LENGTH_SHORT);
                 }
 
                 @Override

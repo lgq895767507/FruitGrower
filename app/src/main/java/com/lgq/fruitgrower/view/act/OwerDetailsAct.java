@@ -18,15 +18,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bmob.BmobProFile;
-import com.bmob.btp.callback.UploadListener;
 import com.bumptech.glide.Glide;
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Consumer;
 import com.lgq.fruitgrower.model.constance.Constance;
 import com.lgq.fruitgrower.model.servers.login.ConsumerServers;
 import com.lgq.fruitgrower.model.servers.login.IDataCallBack;
+import com.lgq.fruitgrower.view.base.BaseAct;
 import com.lgq.fruitgrower.view.utils.SharePreUtils;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
 
@@ -37,13 +35,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
-public class OwerDetailsAct extends AppCompatActivity implements View.OnClickListener {
+public class OwerDetailsAct extends BaseAct implements View.OnClickListener {
 
     private RelativeLayout rl_head;
     private ImageView img_subhead;
@@ -74,8 +71,7 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ower_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         Log.i("lgq", "onCreate");
         //init view
         initView();
@@ -98,14 +94,6 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
 
         consumer = new Consumer();
 
-        //第一次加载的网络的时候onCreate显示网络数据
-        if (SharePreUtils.getEmailPre(this, Constance.ONFLAG, true)) {
-            //直接先执行业务
-            consumerServer();
-            showView();
-            //保存在sharePre中,先加个加载标识flag
-            SharePreUtils.setSharePre(this, Constance.ONFLAG, false);
-        }
 
         //setonclick
         rl_head.setOnClickListener(this);
@@ -115,8 +103,8 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
         rl_address.setOnClickListener(this);
 
         //开启子线程来上传数据
-        Thread myThread = new Thread(myRunable);
-        myThread.start();
+    /*    Thread myThread = new Thread(myRunable);
+        myThread.start();*/
     }
 
     //load sharePre
@@ -128,7 +116,7 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
 
         tv_signature.setText(SharePreUtils.getEmailPre(this,Constance.signature, ""));
         tv_phone.setText(SharePreUtils.getEmailPre(this, Constance.phone, ""));
-        tv_address.setText(SharePreUtils.getEmailPre(this,Constance.address, ""));
+        tv_address.setText(SharePreUtils.getEmailPre(this, Constance.address, ""));
     }
 
     //update network
@@ -137,21 +125,46 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
         //update data to network
         //      updateData();
         Log.i("lgq", "onPause");
+        //开启子线程来上传数据
+        Thread myThread = new Thread(myRunable);
+        myThread.start();
         super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.i("lgq","onbackpressed");
+        super.onBackPressed();
     }
 
     @Override
     protected void onResume() {
         //if not intent connect,show local view
-        showLocView();
+        Log.i("lgq","isnet:"+isNetworkAvailable());
+        //第一次加载的网络的时候onCreate显示网络数据
+        if (SharePreUtils.getEmailPre(this, Constance.ONFLAG, true) && isNetworkAvailable()) {
+            Log.i("lgq","first login");
+            //直接先执行业务
+            consumerServer();
+            showView();
+            //保存在sharePre中,先加个加载标识flag
+            SharePreUtils.setSharePre(this, Constance.ONFLAG, false);
+        }else {
+            Log.i("lgq","showLocView()");
+            showLocView();
+        }
         Log.i("lgq", "onResume");
-        //开启子线程来上传数据
-        Thread myThread = new Thread(myRunable);
-        myThread.start();
-
         super.onResume();
     }
+
+    @Override
+    protected void onStop() {
+        Log.i("lgq","onstop");
+        super.onStop();
+    }
+
     private void showView() {
+        Log.i("lgq","showView()"+consumer.getImg()+consumer.getName());
         if (consumer.getImg() != null) {
             Glide.with(getApplicationContext())
                     .load(consumer.getImg().getFileUrl(getApplicationContext()))
@@ -165,16 +178,42 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
         tv_phone.setText(consumer.getPhone());
         tv_address.setText(consumer.getAddress());
 
-        savaSharePre(consumer);
+        //开启子线程保存本地数据
+        Thread saveThread = new Thread(saveRunnable);
+        saveThread.start();
     }
 
-    private void savaSharePre(Consumer consumer) {
+    Runnable saveRunnable = new Runnable() {
+        @Override
+        public void run() {
+            savaSharePre();
+        }
+    };
+
+    private void savaSharePre() {
         //图片这里可能还存在问题，因为这个url是网上的，所以保存下来肯定也是加载不出来的，想想怎么将图片缓存下来保存在本地。2016.3.16
-        if (consumer.getImg() != null){
-            SharePreUtils.setSharePre(this, Constance.imgHeadPath, consumer.getImg().getFileUrl(getApplication()));
+        //将图片下载下来
+   //     BmobFile bmobFile = new BmobFile("head.png","",consumer.getImg().getFileUrl(getApplicationContext()));
+        final BmobFile bmobFile = consumer.getImg();
+        if (bmobFile != null){
+            bmobFile.download(getApplicationContext(), new DownloadFileListener() {
+                @Override
+                public void onSuccess(String s) {
+                    Log.i("lgq","下载完成."+s+"path:"+bmobFile.getFilename());
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    Log.i("lgq","下载失败:"+i+s);
+                }
+            });
+        }
+       /* if (consumer.getImg() != null){
+
         }else{
             SharePreUtils.setSharePre(this, Constance.imgHeadPath, "");
-        }
+        }*/
+   //     SharePreUtils.setSharePre(this, Constance.imgHeadPath, bmobFile.getFileUrl(getApplicationContext()));
         SharePreUtils.setSharePre(this, Constance.nickname, consumer.getName());
         SharePreUtils.setSharePre(this, Constance.signature, consumer.getSignature());
         SharePreUtils.setSharePre(this, Constance.phone, consumer.getPhone());
@@ -193,21 +232,25 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
                 tag.putString(Constance.nickname, Constance.nickname);
                 intent.putExtras(tag);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
             case R.id.rl_signature:
                 tag.putString(Constance.signature, Constance.signature);
                 intent.putExtras(tag);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
             case R.id.rl_phone:
                 tag.putString(Constance.phone,Constance.phone);
                 intent.putExtras(tag);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
             case R.id.rl_address:
                 tag.putString(Constance.address, Constance.address);
                 intent.putExtras(tag);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
         }
     }
@@ -314,14 +357,14 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     }
 
     private void uploadImg(String path) {
-        BmobProFile bmobFile = BmobProFile.getInstance(this);
+        final BmobFile bmobFile = new BmobFile(new File(path));
         //保存图片路径到SharePre
         SharePreUtils.setSharePre(this,Constance.imgHeadPath, path);
         Log.i("lgq", "uploadImg");
 
-        bmobFile.upload(path, new UploadListener() {
+        bmobFile.uploadblock(getApplication(), new UploadFileListener() {
             @Override
-            public void onSuccess(String s, String s1, BmobFile bmobFile) {
+            public void onSuccess() {
                 //保存图片
                 consumer.setImg(bmobFile);
 
@@ -329,13 +372,8 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public void onProgress(int i) {
-
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                ToastUtils.showToast(getApplication(), "上传失败"+i+":"+s, Toast.LENGTH_SHORT);
+            public void onFailure(int i, String s) {
+                ToastUtils.showToast(getApplication(), "上传失败" + i + ":" + s, Toast.LENGTH_SHORT);
             }
         });
 
@@ -355,11 +393,12 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
         @Override
         public void dataOnsuccess(List<Consumer> objects) {
             for (Consumer object : objects) {
-                Log.i("lgq", "obj:" + object.getName() + objects.size());
+                Log.i("lgq", "objname:" + object.getName() + "SIZE:"+objects.size()+"OBjId"+objects.get(0).getObjectId());
             }
             objectId = objects.get(0).getObjectId();
             consumer = objects.get(0);
             ToastUtils.showToast(getApplication(), "加载成功...", Toast.LENGTH_SHORT);
+            updateData();
         }
 
         @Override
@@ -378,7 +417,6 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
         public void run() {
             Log.i("lgq","run()");
             consumerServer();
-            updateData();
         }
     };
 
@@ -393,7 +431,9 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
         consumer.setPhone(SharePreUtils.getEmailPre(this, Constance.phone, ""));
         Log.i("lgq","address:"+SharePreUtils.getEmailPre(this, Constance.address, ""));
         consumer.setAddress(SharePreUtils.getEmailPre(this, Constance.address, ""));
-
+        if (objectId == null){
+            return;
+        }
         consumer.update(getApplicationContext(), objectId, new UpdateListener() {
             @Override
             public void onSuccess() {

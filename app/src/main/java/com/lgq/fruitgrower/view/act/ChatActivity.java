@@ -40,16 +40,16 @@ public class ChatActivity extends AppCompatActivity implements ObseverListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        //NewIM初始化
+   /*     //NewIM初始化
         BmobIM.init(this);
         //注册消息接收器
-        BmobIM.registerDefaultMessageHandler(new MyMessageHandler(this));
+        BmobIM.registerDefaultMessageHandler(new MyMessageHandler(this));*/
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+/*
         //连接服务器
         BmobIM.connect(SharePreUtils.getEmailPre(this), new ConnectListener() {
             @Override
@@ -70,32 +70,32 @@ public class ChatActivity extends AppCompatActivity implements ObseverListener {
             }
         });
         //解决leancanary提示InputMethodManager内存泄露的问题
-        IMMLeaks.fixFocusedViewLeak(getApplication());
+        IMMLeaks.fixFocusedViewLeak(getApplication());*/
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //添加观察者-用于是否显示通知消息
+/*        //添加观察者-用于是否显示通知消息
         BmobNotificationManager.getInstance(this).addObserver(this);
         //进入应用后，通知栏应取消
-        BmobNotificationManager.getInstance(this).cancelNotification();
+        BmobNotificationManager.getInstance(this).cancelNotification();*/
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //移除观察者
-        BmobNotificationManager.getInstance(this).removeObserver(this);
+  /*      //移除观察者
+        BmobNotificationManager.getInstance(this).removeObserver(this);*/
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //清理导致内存泄露的资源
+  /*      //清理导致内存泄露的资源
         BmobIM.getInstance().clear();
         //完全退出应用时需调用clearObserver来清除观察者
-        BmobNotificationManager.getInstance(this).clearObserver();
+        BmobNotificationManager.getInstance(this).clearObserver();*/
     }
 
 
@@ -106,7 +106,6 @@ public class ChatActivity extends AppCompatActivity implements ObseverListener {
     public void onBackPressed() {
 //        controller = FragmentController.getInstance(this,R.id.fl_content);
 //        controller.showFragment(3);
-        finish();
         super.onBackPressed();
     }
 }

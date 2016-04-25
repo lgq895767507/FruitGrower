@@ -1,8 +1,12 @@
 package com.lgq.fruitgrower.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +33,8 @@ import com.lgq.fruitgrower.view.utils.ToastUtils;
 import com.lgq.fruitgrower.view.widget.WrapHeightGridView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by lgq on 16-3-14.
@@ -38,6 +44,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
     //获取上下文
     private Context context;
     private ArrayList<Pubilsh> datas;
+
+    //hashMap 保存
+    private static HashMap<Integer,Boolean> hashChange = new HashMap<>();
 
     MyViewHolder.ItemClick itemClick;
 
@@ -72,7 +81,11 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             holder.iv_avatar.setImageBitmap(defaultImg);
         }
         //设置名字
-        holder.tv_subhead.setText(datas.get(position).getName());
+        if (datas.get(position).getName() != null){
+            holder.tv_subhead.setText(datas.get(position).getName());
+        }else{
+            holder.tv_subhead.setText(datas.get(position).getEmail());
+        }
         //设置发布时间
         holder.tv_caption.setText(datas.get(position).getCreatedAt());
         //设置内容
@@ -91,6 +104,16 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             holder.include_status_image.setVisibility(View.GONE);
             holder.iv_image.setVisibility(View.GONE);
         }
+
+        Log.i("lgq","hashMap:"+hashChange.get(position));
+        if (hashChange.get(position) == null) {
+            holder.iv_like_bottom.setImageDrawable(context.getResources().getDrawable(R.mipmap.timeline_icon_like_disable));
+        } else if (hashChange.get(position)) {
+            holder.iv_like_bottom.setImageDrawable(context.getResources().getDrawable(R.mipmap.timeline_icon_like));
+        }else{
+            holder.iv_like_bottom.setImageDrawable(context.getResources().getDrawable(R.mipmap.timeline_icon_like_disable));
+        }
+
     }
 
     @Override
@@ -119,6 +142,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
         public LinearLayout ll_card_content;
 
 
+
+        //设置点赞的改变值
+        private boolean isChanged = false;
         //region 回调接口
         ItemClick itemClick;
 
@@ -130,6 +156,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
             void onRootViewClick(int position);
 
             void onBtnLikeClick(int position);
+
+            void onBtnUnLikeClick(int position);
         }
         //endregion
 
@@ -181,7 +209,18 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.MyViewHold
                     break;
                 case R.id.ll_like_bottom:
                     if (itemClick != null) {
-                        itemClick.onBtnLikeClick(getAdapterPosition());
+                        if (isChanged) {
+                            //设置点击背景
+                            Drawable drawableLiled = v.getResources().getDrawable(R.mipmap.timeline_icon_like_disable);
+                            iv_like_bottom.setImageDrawable(drawableLiled);
+                            itemClick.onBtnUnLikeClick(getAdapterPosition());
+                        }else {
+                            Drawable drawableLiled = v.getResources().getDrawable(R.mipmap.timeline_icon_like);
+                            iv_like_bottom.setImageDrawable(drawableLiled);
+                            itemClick.onBtnLikeClick(getAdapterPosition());
+                        }
+                        isChanged = !isChanged;
+                        hashChange.put(getAdapterPosition(),isChanged);
                     }
                     break;
             }

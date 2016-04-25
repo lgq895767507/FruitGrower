@@ -92,8 +92,6 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
                 @Override
                 public void onSuccess() {
                     ToastUtils.showToast(getApplicationContext(), "发布数据成功", Toast.LENGTH_SHORT);
-                    intent = new Intent(getApplication(), MainActivity.class);
-
                 }
 
                 @Override
@@ -136,10 +134,13 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
 
     @Override
     public void onBackPressed() {
-        publicContent();
+        //开启子线程来保存数据
+        Thread thread = new Thread(MyRunnable);
+        thread.start();
+        intent = new Intent(getApplication(), MainActivity.class);
         setResult(RESULT_OK, intent);
         super.onBackPressed();
-        finish();
+        overridePendingTransition(R.anim.out_to_up,R.anim.in_from_down);
     }
 
     @Override
@@ -147,19 +148,15 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
         switch (checkedId) {
             case R.id.rb_photo:
                 selectPhoto();
-                ToastUtils.showToast(getApplicationContext(), "rb_photo", Toast.LENGTH_SHORT);
                 rb_photo.setChecked(false);
                 break;
             case R.id.rb_about:
-                ToastUtils.showToast(getApplicationContext(), "rb_about", Toast.LENGTH_SHORT);
                 rb_about.setChecked(false);
                 break;
             case R.id.rb_emoji:
-                ToastUtils.showToast(getApplicationContext(), "rb_emoji", Toast.LENGTH_SHORT);
                 rb_emoji.setChecked(false);
                 break;
             case R.id.rb_add:
-                ToastUtils.showToast(getApplicationContext(), "rb_add", Toast.LENGTH_SHORT);
                 rb_add.setChecked(false);
                 break;
             default:
@@ -291,5 +288,11 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
         });
     }
 
+    Runnable MyRunnable = new Runnable() {
+        @Override
+        public void run() {
+            publicContent();
+        }
+    };
 
 }

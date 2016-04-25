@@ -99,6 +99,6 @@ public class EditAct extends AppCompatActivity {
     public void onBackPressed() {
         savaData();
         super.onBackPressed();
-        finish();
+        overridePendingTransition(R.anim.out_to_left,R.anim.in_from_right);
     }
 }

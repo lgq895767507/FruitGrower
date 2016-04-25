@@ -13,7 +13,7 @@
     <string name="ower_comment">我的评论</string>
     <string name="exit_login">退出账号</string>
     <string name="home_page">首页</string>
-    <string name="classify_page">分类</string>
+    <string name="classify_page">定位</string>
     <string name="message_page">消息</string>
     <string name="owner_page">我的</string>
     <string name="public_content">发布的内容...</string>
@@ -217,5 +217,5 @@
     <string name="title_activity_chat">ChatActivity</string>
 
     <string name="title_packageName">果农</string>
-    <string name="title_activity_owner_public_list">OwnerPublicList</string>
+    <string name="title_activity_owner_public_list">我发布的</string>
 </resources>

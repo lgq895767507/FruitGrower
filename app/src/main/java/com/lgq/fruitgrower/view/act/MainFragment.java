@@ -45,9 +45,22 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
 
         view =  View.inflate(activity,R.layout.fragment_main,null);
         initView();
+        Log.i("lgq1", "MainFragment");
         return view;
     }
 
+    /*@Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            Log.i("lgq1","ownerFragment");
+            //设置SwipeRefreshLayout组件开始显示刷新球
+            recyclerViewAndSwipeRefreshLayout.getSwipeRefreshLayout().setRefreshing(true);
+            //直接调用业务
+            dataServers.selectByEmail();
+        }
+    }
+*/
     private void initView() {
   //     recycle_view = (RecyclerView) view.findViewById(R.id.recycle_view);
   //     layoutManager = new LinearLayoutManager(getContext());
@@ -155,11 +168,16 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
 
     @Override
     public void onBtnCommentClick(int position) {
-        Bundle bundle = new Bundle();
+    /*    Bundle bundle = new Bundle();
         bundle.putString("ObjectId", adapter.getDatas().get(position).getObjectId());
         Intent intent = new Intent(getContext(),CommentActivity.class);
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivity(intent);*/
+
+        ((iMainFragment)getActivity()).iCommentClick(adapter.getDatas().get(position).getObjectId());
+
+        Log.i("lgq1","onbtnCommentClick");
+        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
     @Override
@@ -175,7 +193,25 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
 
             @Override
             public void onFailure(int i, String s) {
-                Log.i("lgq","unliked"+i+"---"+s);
+                Log.i("lgq","liked onFailure"+i+"---"+s);
+            }
+        });
+        Log.i("lgq","onBtnLikeClick++++"+position);
+    }
+
+    @Override
+    public void onBtnUnLikeClick(int position) {
+        Pubilsh pubilsh = new Pubilsh();
+        pubilsh.increment("liked",-1);
+        pubilsh.update(getContext(), adapter.getDatas().get(position).getObjectId(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                Log.i("lgq", "unliked");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Log.i("lgq", "unlike onFailure" + i + "---" + s);
             }
         });
         Log.i("lgq","onBtnLikeClick++++"+position);
@@ -184,5 +220,9 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
     @Override
     public void onRootViewClick(int position) {
         Log.i("lgq","position++++"+position);
+    }
+
+    public interface iMainFragment{
+        void iCommentClick(String iObjectId);
     }
 }

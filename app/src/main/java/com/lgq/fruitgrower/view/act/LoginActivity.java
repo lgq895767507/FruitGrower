@@ -71,7 +71,7 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
                 //设置字体颜色的改变
                 btn_sign_email.setTextColor(Color.GRAY);
                 intent2Activity(SignActivity.class);
-                finish();
+
                 break;
             case R.id.btn_sign_phone:
                 btn_sign_phone.setTextColor(Color.GREEN);
@@ -114,7 +114,6 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
 
                 //change aoto login values
                 setSharePre();
-
                 finish();
             }
 

@@ -46,7 +46,7 @@ public class OwnerPublicAdapter extends RecyclerView.Adapter<OwnerPublicAdapter.
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        MyViewHolder holder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_card_view, parent,
+        MyViewHolder holder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.owner_public_item_view, parent,
                 false), itemClick);
         return holder;
     }

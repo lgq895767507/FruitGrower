@@ -35,7 +35,7 @@ public class DataServers {
         //显示所有的public数据
 //        Log.i("lgq","now email::::"+SharePreUtils.getEmailPre(context));
 //        query.addWhereEqualTo("email", SharePreUtils.getEmailPre(context));
-        //降序显示
+        //最新时间显示
         query.order("-createdAt");
 
         query.findObjects(context, new FindListener<Pubilsh>() {
@@ -55,28 +55,4 @@ public class DataServers {
         });
     }
 
-//    public void selectByEmail() {
-//        //查找对应的objectId,注意：修改数据只能通过objectId来修改，目前不提供查询条件方式的修改方法。
-//        BmobQuery<Pubilsh> query = new BmobQuery<Pubilsh>();
-//        //显示所有的public数据
-////        Log.i("lgq","now email::::"+SharePreUtils.getEmailPre(context));
-////        query.addWhereEqualTo("email", SharePreUtils.getEmailPre(context));
-//
-//        query.findObjects(context, new FindListener<Pubilsh>() {
-//            @Override
-//            public void onSuccess(List<Pubilsh> list) {
-//                if (list.size() == 0){
-//                    selectByEmailIDataCallBack.dataOnEmpty();
-//                    return;
-//                }
-//                selectByEmailIDataCallBack.dataOnsuccess(list);
-//            }
-//
-//            @Override
-//            public void onError(int i, String s) {
-//                selectByEmailIDataCallBack.dataOnError(i,s);
-//            }
-//        });
-//    }
-    
 }

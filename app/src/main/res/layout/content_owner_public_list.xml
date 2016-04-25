@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_owner_public_list"
-    tools:context="com.lgq.fruitgrower.view.act.OwnerPublicList">
+    tools:context="com.lgq.fruitgrower.view.act.OwnerPublicListAct">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/owner_public_recycle"

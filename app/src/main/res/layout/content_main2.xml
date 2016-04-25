@@ -73,7 +73,7 @@
             android:text="@string/home_page" />
 
         <RadioButton
-            android:id="@+id/rb_meassage"
+            android:id="@+id/rb_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -90,7 +90,7 @@
             android:src="@mipmap/public1" />
 
         <RadioButton
-            android:id="@+id/rb_search"
+            android:id="@+id/rb_meassage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

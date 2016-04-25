@@ -3,6 +3,9 @@ package com.lgq.fruitgrower.view;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,7 +27,12 @@ import android.widget.Toast;
 
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Consumer;
+import com.lgq.fruitgrower.view.act.ClassifyFragment;
+import com.lgq.fruitgrower.view.act.CommentActivity;
 import com.lgq.fruitgrower.view.act.FragmentController;
+import com.lgq.fruitgrower.view.act.MainFragment;
+import com.lgq.fruitgrower.view.act.MessageFragment;
+import com.lgq.fruitgrower.view.act.OwnerFragment;
 import com.lgq.fruitgrower.view.act.PublicActivity;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
 
@@ -37,7 +45,7 @@ import cn.bmob.v3.listener.FindCallback;
 import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener
-        , NavigationView.OnNavigationItemSelectedListener {
+        , NavigationView.OnNavigationItemSelectedListener , MainFragment.iMainFragment {
 
     private RadioGroup rg_tab;
     private ImageView iv_add;
@@ -54,9 +62,27 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private RadioButton rb_search;
     private RadioButton rb_user;
 
+    //TAG
+    private Fragment mainFragment;
+    private Fragment searchFragment;
+    private Fragment messageFragment;
+    private Fragment userFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        FragmentManager fm = getSupportFragmentManager();
+        if (savedInstanceState != null){
+            Log.i("lgq1", "savedInstanceState");
+//            controller = FragmentController.getInstance(this, R.id.fl_content, "mainFragment");
+
+            mainFragment = (MainFragment)fm.findFragmentByTag("mainFragment");
+            searchFragment = (ClassifyFragment)fm.findFragmentByTag("searchFragment");
+            messageFragment = (MessageFragment)fm.findFragmentByTag("messageFragment");
+            userFragment = (OwnerFragment)fm.findFragmentByTag("userFragment");
+        }
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main2);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -66,8 +92,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         openDrawerToggle(getString(R.string.home_page));
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//设为竖屏
-        controller = FragmentController.getInstance(this, R.id.fl_content);
-        controller.showFragment(0);
+    //    if (savedInstanceState == null) {
+            Log.i("lgq1","savedInstanceState == null");
+            controller = FragmentController.getInstance(this, R.id.fl_content, "mainFragment");
+            controller.showFragment(0);
+     //   }
+
+
+
+
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -75,7 +108,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
         initView();
+        Log.i("lgq1", "MainActivity");
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        Log.i("lgq1","onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState)"+outState);
+
+   //     super.onSaveInstanceState(outState, outPersistentState);
 
     }
 
@@ -151,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         if (id == R.id.nav_camara) {
             // Handle the camera action
+            ToastUtils.showToast(getApplicationContext(),"+1",Toast.LENGTH_SHORT);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -174,6 +215,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         switch (checkedId) {
             case R.id.rb_home:
+                Log.i("lgq1","rbhome");
+                controller = FragmentController.getInstance(this,  R.id.fl_content,"mainFragment");
                 controller.showFragment(0);
                 toolbar.setTitle(getString(R.string.home_page));
                 setSupportActionBar(toolbar);
@@ -185,7 +228,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
                 //    openDrawerToggle("首页");
                 break;
-            case R.id.rb_meassage:
+            case R.id.rb_search:
+                controller = FragmentController.getInstance(this,  R.id.fl_content,"searchFragment");
                 controller.showFragment(1);
                 toolbar.setTitle(getString(R.string.classify_page));
                 setSupportActionBar(toolbar);
@@ -196,7 +240,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     rb_user.setTextColor(getResources().getColor(R.color.txt_gray));
                 }
                 break;
-            case R.id.rb_search:
+            case R.id.rb_meassage:
+                controller = FragmentController.getInstance(this,  R.id.fl_content,"messageFragment");
                 controller.showFragment(2);
                 toolbar.setTitle(getString(R.string.message_page));
                 setSupportActionBar(toolbar);
@@ -209,6 +254,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 // openDrawerToggle("消息");
                 break;
             case R.id.rb_user:
+                controller = FragmentController.getInstance(this, R.id.fl_content,"userFragment");
                 controller.showFragment(3);
                 openDrawerToggle(getString(R.string.owner_page));
                 if (rb_user.isChecked()) {
@@ -250,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 bundle.putBoolean("farmer", true);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.in_from_down,R.anim.out_to_up);
                 if (rela_layout.getVisibility() == View.VISIBLE) {
                     rela_layout.setVisibility(View.GONE);
                 }
@@ -263,6 +310,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 bundle.putBoolean("farmer", false);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.in_from_down, R.anim.out_to_up);
                 if (rela_layout.getVisibility() == View.VISIBLE) {
                     rela_layout.setVisibility(View.GONE);
                 }
@@ -273,6 +321,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i("lgq1", "ondestroy");
         FragmentController.onDestroy();
     }
 
@@ -286,4 +335,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
     }
 
+    @Override
+    public void iCommentClick(String iObjectId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("ObjectId", iObjectId);
+        Intent intent = new Intent(this,CommentActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        Log.i("lgq1","iCommentClick");
+    }
 }
