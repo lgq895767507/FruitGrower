@@ -1,20 +1,19 @@
 package com.lgq.fruitgrower.presenter;
 
 import com.lgq.fruitgrower.model.beans.Consumer;
-import com.lgq.fruitgrower.model.servers.login.ILogin;
 import com.lgq.fruitgrower.model.servers.login.Login;
 import com.lgq.fruitgrower.model.servers.login.OnloginListener;
-import com.lgq.fruitgrower.view.Iview.ILoginActivity;
+import com.lgq.fruitgrower.view.Iview.ILoginView;
 
 /**
  * Created by lgq on 16-1-29.
  */
 public class LoginPresenter {
-    ILoginActivity loginActivity;
+    ILoginView loginActivity;
     Login login;
 
 
-    public LoginPresenter( ILoginActivity loginActivity){
+    public LoginPresenter( ILoginView loginActivity){
         this.loginActivity = loginActivity;
         login = new Login();
     }

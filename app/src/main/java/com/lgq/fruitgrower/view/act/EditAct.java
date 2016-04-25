@@ -30,7 +30,6 @@ import cn.bmob.v3.listener.UpdateListener;
 public class EditAct extends AppCompatActivity {
 
     private EditText tv_content;
-    Consumer consumer = new Consumer();
     private Intent intent;
     private Bundle bundle;
 
@@ -54,36 +53,45 @@ public class EditAct extends AppCompatActivity {
 
     private void showContent() {
         if (bundle == null) {
-            Log.i("lgq","bundle:"+bundle);
+            Log.i("lgq", "bundle:" + bundle);
             return;
         }
-        if ("nickname".equals(bundle.getString("nickname"))) {
-            tv_content.setText(SharePreUtils.getEmailPre(this, "nickname", ""));
-        } else if ("signature".equals(bundle.getString("signature"))) {
-            tv_content.setText(SharePreUtils.getEmailPre(this, "signature", ""));
-        } else if ("phone".equals(bundle.getString("phone"))) {
-            tv_content.setText(SharePreUtils.getEmailPre(this, "phone", ""));
-        } else if ("address".equals(bundle.getString("address"))) {
-            tv_content.setText(SharePreUtils.getEmailPre(this, "address", ""));
+        if (Constance.nickname.equals(bundle.getString(Constance.nickname))) {
+            tv_content.setText(SharePreUtils.getEmailPre(this, Constance.nickname, ""));
+        }
+        if (Constance.signature.equals(bundle.getString(Constance.signature))) {
+            tv_content.setText(SharePreUtils.getEmailPre(this, Constance.signature, ""));
+        }
+        if (Constance.phone.equals(bundle.getString(Constance.phone))) {
+            tv_content.setText(SharePreUtils.getEmailPre(this, Constance.phone, ""));
+        }
+        if (Constance.address.equals(bundle.getString(Constance.address))) {
+            tv_content.setText(SharePreUtils.getEmailPre(this, Constance.address, ""));
         }
     }
 
     private void savaData() {
         if (bundle == null) {
+            Log.i("lgq", "savaData bundle:" + bundle);
             return;
         }
+        Log.i("lgq", "savaData bundle:" + bundle.getString(Constance.nickname));
         String getContent = tv_content.getText().toString();
         if (getContent == null) {
             return;
         }
-        if ("nickname".equals(bundle.getString("nickname"))) {
-            SharePreUtils.setSharePre(this, "nickname", getContent);
-        } else if ("signature".equals(bundle.getString("signature"))) {
-            SharePreUtils.setSharePre(this, "signature", getContent);
-        } else if ("phone".equals(bundle.getString("phone"))) {
-            SharePreUtils.setSharePre(this, "phone", getContent);
-        } else if ("address".equals(bundle.getString("address"))) {
-            SharePreUtils.setSharePre(this, "address", getContent);
+        if (Constance.nickname.equals(bundle.getString(Constance.nickname))) {
+            SharePreUtils.setSharePre(this, Constance.nickname, getContent);
+            Log.i("lgq","ffff"+getContent);
+        }
+        if (Constance.signature.equals(bundle.getString(Constance.signature))) {
+            SharePreUtils.setSharePre(this, Constance.signature, getContent);
+        }
+        if (Constance.phone.equals(bundle.getString(Constance.phone))) {
+            SharePreUtils.setSharePre(this, Constance.phone, getContent);
+        }
+        if (Constance.address.equals(bundle.getString(Constance.address))) {
+            SharePreUtils.setSharePre(this, Constance.address, getContent);
         }
     }
 
@@ -91,59 +99,6 @@ public class EditAct extends AppCompatActivity {
     public void onBackPressed() {
         savaData();
         super.onBackPressed();
-        finish();
+        overridePendingTransition(R.anim.out_to_left,R.anim.in_from_right);
     }
-
-//    private void saveData(final int resultCode) {
-//        //查找对应的objectId,注意：修改数据只能通过objectId来修改，目前不提供查询条件方式的修改方法。
-//
-//        BmobQuery<Consumer> query = new BmobQuery<Consumer>();
-//        query.addWhereEqualTo("email", getSharePre());
-//        query.findObjects(getApplicationContext(), new FindListener<Consumer>() {
-//            @Override
-//            public void onSuccess(List<Consumer> list) {
-//                String ObjId = "";
-//                for (Consumer consumer : list) {
-//                    ObjId = consumer.getObjectId();
-//                }
-//                if (ObjId != "" || ObjId != null) {
-//                    updateData(resultCode, ObjId);
-//                }
-//            }
-//
-//            @Override
-//            public void onError(int i, String s) {
-//
-//            }
-//        });
-//
-//        setResult(resultCode, intent);
-//
-//    }
-//
-//    private void updateData(int resultCode, final String ObjId) {
-//        if (resultCode == 1) {
-//            consumer.setName(tv_content.getText().toString());
-//        } else if (resultCode == 2) {
-//            consumer.setSignature(tv_content.getText().toString());
-//        } else if (resultCode == 3) {
-//            consumer.setPhone(tv_content.getText().toString());
-//        } else if (resultCode == 4) {
-//            consumer.setAddress(tv_content.getText().toString());
-//        }
-//        consumer.update(getApplicationContext(), ObjId, new UpdateListener() {
-//            @Override
-//            public void onSuccess() {
-//                ToastUtils.showToast(getApplicationContext(), "更改数据成功", Toast.LENGTH_SHORT);
-//            }
-//
-//            @Override
-//            public void onFailure(int i, String s) {
-//                Log.i("lgq", "aaa+" + s);
-//                ToastUtils.showToast(getApplicationContext(), "更改数据失败" + i, Toast.LENGTH_SHORT);
-//            }
-//        });
-//    }
-
-
 }

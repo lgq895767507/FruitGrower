@@ -37,6 +37,20 @@ public class Constance {
      * sharePref表中位置的key
      */
     public static final String address = "address";
+    /**
+     * SharePre表中在加载consumer网络数据的时候，只初始化的时候加载一次
+     */
+    public static final String ONFLAG = "onflag";
 
+
+    /**
+     * 缩略图的size介于0～1的一个float数
+     */
+    public static final float SizeHalf = 0.5f;
+    public static final float SizeHeadPng = 0.2f;
+    /**
+     * APP_KEY for Init bmob
+     */
+    public static final String APP_KEY = "1e2c0a6ba014146ecf54552f56ee0c64";
 
 }

@@ -10,12 +10,12 @@ import cn.bmob.v3.datatype.BmobFile;
  */
 public class Goods extends BmobObject implements Serializable {
 
-    String name;
-    String unit;
-    String coment;
-    Float price;
-    Float weight;
-    BmobFile photo;
+    private String name;
+    private String unit;
+    private String coment;
+    private Float price;
+    private Float weight;
+    private BmobFile photo;
 
     public String getName() {
         return name;

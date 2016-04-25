@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tv_retweeted_content"
         style="@style/TextViewBody"
-        android:padding="16dp"
+        android:padding="@dimen/retweeted_tv_padding"
         android:textColor="@color/txt_gray" />
 
     <include

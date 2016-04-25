@@ -15,7 +15,7 @@
         android:id="@+id/tv_content"
         android:layout_alignParentTop="true"
         android:inputType="textMultiLine"
-        android:hint="发布的内容..."
+        android:hint="@string/public_content"
         android:background="@null"
         android:windowSoftInputMode="adjustResize"
         android:layout_alignParentStart="true" />
@@ -23,16 +23,16 @@
     <ImageView
         android:visibility="gone"
         android:padding="@dimen/activity_horizontal_margin"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/public_img_width"
+        android:layout_height="@dimen/public_img_height"
         android:id="@+id/Im_photo"
         android:layout_below="@+id/tv_content"
         android:layout_alignParentStart="true"
         />
     <ImageView
         android:visibility="gone"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="@dimen/public_img_cal_width"
+        android:layout_height="@dimen/public_img_cal_height"
         android:id="@+id/Im_close"
         android:layout_below="@+id/tv_content"
         android:layout_alignRight="@+id/Im_photo"
@@ -40,16 +40,16 @@
         android:src="@android:drawable/ic_menu_close_clear_cancel"/>
 
     <View
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="@dimen/public_view_marBtm"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#8b8a8a"/>
+        android:layout_height="@dimen/public_view_height"
+        android:background="@color/view_line"/>
     <RadioGroup
         android:layout_alignParentBottom="true"
         android:id="@+id/rg_pub"
         android:layout_width="fill_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/public_rg_height"
         android:layout_gravity="bottom"
         android:gravity="center_vertical"
         android:orientation="horizontal" >

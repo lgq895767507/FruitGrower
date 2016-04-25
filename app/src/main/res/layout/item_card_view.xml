@@ -1,45 +1,43 @@
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     android:layout_margin="4dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="2dp"
-    >
+    app:cardElevation="2dp">
 
-        <LinearLayout
-            android:id="@+id/ll_card_content"
+    <LinearLayout
+        android:id="@+id/ll_card_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white2gray_sel"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_avatar" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            style="@style/TextViewBody"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_white2gray_sel"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/card_view_tv_martop"
+            android:padding="@dimen/card_view_tv_padding"
+            android:text="从前有个人来到了油坊桥,后来他变成了吴彦祖" />
 
-            <include layout="@layout/include_avatar" />
+        <include
+            android:id="@+id/include_status_image"
+            layout="@layout/include_status_image"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_content"
-                style="@style/TextViewBody"
-                android:layout_width="match_parent"
-                android:layout_marginTop="-16dp"
-                android:padding="16dp"
-                android:text="从前有个人来到了油坊桥,后来他变成了吴彦祖" />
+        <include
+            android:id="@+id/include_retweeted_status"
+            layout="@layout/include_retweeted_status"
+            android:visibility="gone" />
 
-            <include
-                android:id="@+id/include_status_image"
-                layout="@layout/include_status_image"
-                android:visibility="gone" />
-
-            <include
-                android:id="@+id/include_retweeted_status"
-                layout="@layout/include_retweeted_status"
-                android:visibility="gone" />
-
-            <include
-                android:id="@+id/ll_bottom_control"
-                layout="@layout/include_status_controlbar" />
-        </LinearLayout>
+        <include
+            android:id="@+id/ll_bottom_control"
+            layout="@layout/include_status_controlbar" />
+    </LinearLayout>
 </android.support.v7.widget.CardView>
 
 

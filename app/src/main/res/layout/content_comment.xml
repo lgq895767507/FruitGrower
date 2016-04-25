@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    android:background="@color/bg_light"
+    tools:showIn="@layout/activity_main">
+
+    <EditText
+        android:id="@+id/et_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@null"
+        android:hint="@string/comment_content"
+        android:inputType="textMultiLine"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:windowSoftInputMode="adjustResize" />
+
+    <ImageView
+        android:id="@+id/Im_photo"
+        android:layout_width="@dimen/comment_img_width"
+        android:layout_height="@dimen/comment_img_height"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/Im_close"
+        android:layout_width="@dimen/comment_img_clo_widht"
+        android:layout_height="@dimen/comment_img_clo_height"
+        android:layout_alignRight="@+id/Im_photo"
+        android:layout_alignTop="@+id/Im_photo"
+        android:layout_below="@+id/tv_content"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_line"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/public_view_marBtm"
+        android:background="@color/view_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/comment_lr_height"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/Ib_photo"
+                android:layout_width="@dimen/comment_imgbtn_width"
+                android:layout_height="@dimen/comment_imgbtn_height"
+                android:layout_gravity="center"
+                android:background="@android:drawable/ic_menu_gallery" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/Ib_contact"
+                android:layout_width="@dimen/comment_imgbtn_width"
+                android:layout_height="@dimen/comment_imgbtn_height"
+                android:layout_gravity="center"
+                android:background="@mipmap/compose_trendbutton_background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/Ib_emojy"
+                android:layout_width="@dimen/comment_imgbtn_width"
+                android:layout_height="@dimen/comment_imgbtn_height"
+                android:layout_gravity="center"
+                android:background="@mipmap/me" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/Ib_send"
+                android:layout_width="@dimen/comment_imgbtn_width"
+                android:layout_height="@dimen/comment_imgbtn_height"
+                android:layout_gravity="center"
+                android:background="@mipmap/timeline_icon_retweet" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

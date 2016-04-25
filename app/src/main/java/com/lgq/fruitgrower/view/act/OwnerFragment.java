@@ -1,11 +1,6 @@
 package com.lgq.fruitgrower.view.act;
 
-import android.app.Activity;
-
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -35,7 +30,6 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.GetListener;
 
 public class OwnerFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
@@ -67,6 +61,7 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            Log.i("lgq1","ownerFragment");
             showData();
         }
     }
@@ -89,7 +84,9 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
 
             @Override
             public void onError(int i, String s) {
-                ToastUtils.showToast(getContext(), "查询失败:" + i, Toast.LENGTH_SHORT);
+                //若没有网络的时候，显示本地的数据
+                localViewShow();
+                ToastUtils.showToast(getContext(), "无网络连接:" + i, Toast.LENGTH_SHORT);
             }
         });
 
@@ -100,11 +97,21 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
         if (consumer.getImg() != null) {
             Glide.with(getContext())
                     .load(consumer.getImg().getFileUrl(getContext()))
+                    .thumbnail(Constance.SizeHeadPng)
                     .into(iv_avatar);
         }
         tv_subhead.setText(consumer.getName());
         tv_caption.setText(consumer.getAddress());
 
+    }
+
+    private void localViewShow(){
+        Glide.with(getContext())
+                .load(SharePreUtils.getEmailPre(getContext(), Constance.imgHeadPath, ""))
+                .error(R.mipmap.logo)
+                .into(iv_avatar);
+        tv_subhead.setText(SharePreUtils.getEmailPre(getContext(), Constance.nickname, SharePreUtils.getEmailPre(getContext())));
+        tv_caption.setText(SharePreUtils.getEmailPre(getContext(), Constance.address, ""));
     }
 
     private void initView() {
@@ -128,11 +135,11 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
     }
 
     private void setData() {
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我发布的", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我的收藏", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我收到的赞", ""));
-        ownerSettings.add(new OwnerSetting(false, R.mipmap.ic_launcher, "我的评论", ""));
-        ownerSettings.add(new OwnerSetting(true, R.mipmap.ic_launcher, "退出账号", ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.publish, getString(R.string.ower_publish), ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.saved, getString(R.string.ower_saved), ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.like, getString(R.string.ower_liked), ""));
+        ownerSettings.add(new OwnerSetting(false, R.mipmap.message, getString(R.string.ower_comment), ""));
+        ownerSettings.add(new OwnerSetting(true, R.mipmap.compose_trendbutton_background, getString(R.string.exit_login), ""));
     }
 
     View.OnClickListener llOnclick = new View.OnClickListener() {
@@ -146,6 +153,7 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
+                ownerPublic();
                 ToastUtils.showToast(getContext(), "case 0 ", Toast.LENGTH_SHORT);
                 break;
             case 1:
@@ -162,6 +170,10 @@ public class OwnerFragment extends BaseFragment implements AdapterView.OnItemCli
                 exitApp();
                 break;
         }
+    }
+
+    private void ownerPublic(){
+       intent2Activity(OwnerPublicListAct.class);
     }
 
     private void exitApp() {

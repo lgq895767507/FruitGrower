@@ -1,10 +1,8 @@
 package com.lgq.fruitgrower.view.act;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,8 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,17 +18,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Consumer;
 import com.lgq.fruitgrower.model.constance.Constance;
-import com.lgq.fruitgrower.model.servers.login.FindByEmailServer;
-import com.lgq.fruitgrower.view.MainActivity;
+import com.lgq.fruitgrower.model.servers.login.ConsumerServers;
+import com.lgq.fruitgrower.model.servers.login.IDataCallBack;
+import com.lgq.fruitgrower.view.base.BaseAct;
 import com.lgq.fruitgrower.view.utils.SharePreUtils;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -41,14 +35,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
-public class OwerDetailsAct extends AppCompatActivity implements View.OnClickListener {
+public class OwerDetailsAct extends BaseAct implements View.OnClickListener {
 
     private RelativeLayout rl_head;
     private ImageView img_subhead;
@@ -72,13 +64,15 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
 
     private Intent intent;
 
+    //对应email的id
+    private static String objectId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ower_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        Log.i("lgq", "onCreate");
         //init view
         initView();
 
@@ -100,8 +94,6 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
 
         consumer = new Consumer();
 
-//        //showView from intent
-        showView();
 
         //setonclick
         rl_head.setOnClickListener(this);
@@ -110,64 +102,122 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
         rl_phone.setOnClickListener(this);
         rl_address.setOnClickListener(this);
 
+        //开启子线程来上传数据
+    /*    Thread myThread = new Thread(myRunable);
+        myThread.start();*/
     }
 
     //load sharePre
     private void showLocView() {
         Glide.with(getApplicationContext())
-                .load(SharePreUtils.getEmailPre(this, "imgHeadPath", ""))
+                .load(SharePreUtils.getEmailPre(this, Constance.imgHeadPath, ""))
                 .into(img_subhead);
-        tv_nickname.setText(SharePreUtils.getEmailPre(this, "nickname", SharePreUtils.getEmailPre(this)));
+        tv_nickname.setText(SharePreUtils.getEmailPre(this, Constance.nickname, SharePreUtils.getEmailPre(this)));
 
-        tv_signature.setText(SharePreUtils.getEmailPre(this, "signature", ""));
-        tv_phone.setText(SharePreUtils.getEmailPre(this, "phone", ""));
-        tv_address.setText(SharePreUtils.getEmailPre(this, "address", ""));
+        tv_signature.setText(SharePreUtils.getEmailPre(this,Constance.signature, ""));
+        tv_phone.setText(SharePreUtils.getEmailPre(this, Constance.phone, ""));
+        tv_address.setText(SharePreUtils.getEmailPre(this, Constance.address, ""));
+    }
 
-        //sava to intent
-        updateData();
+    //update network
+    @Override
+    protected void onPause() {
+        //update data to network
+        //      updateData();
+        Log.i("lgq", "onPause");
+        //开启子线程来上传数据
+        Thread myThread = new Thread(myRunable);
+        myThread.start();
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.i("lgq","onbackpressed");
+        super.onBackPressed();
     }
 
     @Override
     protected void onResume() {
         //if not intent connect,show local view
-        showLocView();
-
+        Log.i("lgq","isnet:"+isNetworkAvailable());
+        //第一次加载的网络的时候onCreate显示网络数据
+        if (SharePreUtils.getEmailPre(this, Constance.ONFLAG, true) && isNetworkAvailable()) {
+            Log.i("lgq","first login");
+            //直接先执行业务
+            consumerServer();
+            showView();
+            //保存在sharePre中,先加个加载标识flag
+            SharePreUtils.setSharePre(this, Constance.ONFLAG, false);
+        }else {
+            Log.i("lgq","showLocView()");
+            showLocView();
+        }
+        Log.i("lgq", "onResume");
         super.onResume();
     }
 
+    @Override
+    protected void onStop() {
+        Log.i("lgq","onstop");
+        super.onStop();
+    }
+
     private void showView() {
-        BmobQuery<Consumer> query = new BmobQuery<Consumer>();
-        query.addWhereEqualTo("email", SharePreUtils.getEmailPre(this));
-        query.findObjects(getApplicationContext(), new FindListener<Consumer>() {
-            @Override
-            public void onSuccess(List<Consumer> list) {
-                Consumer own = list.get(0);
-                if (own.getImg() != null) {
-                    Glide.with(getApplicationContext())
-                            .load(own.getImg().getFileUrl(getApplicationContext()))
-                            .into(img_subhead);
+        Log.i("lgq","showView()"+consumer.getImg()+consumer.getName());
+        if (consumer.getImg() != null) {
+            Glide.with(getApplicationContext())
+                    .load(consumer.getImg().getFileUrl(getApplicationContext()))
+                    .into(img_subhead);
+        } else {
+            Bitmap defaultImg = BitmapFactory.decodeResource(getApplication().getResources(), R.mipmap.logo);
+            img_subhead.setImageBitmap(defaultImg);
+        }
+        tv_nickname.setText(consumer.getName());
+        tv_signature.setText(consumer.getSignature());
+        tv_phone.setText(consumer.getPhone());
+        tv_address.setText(consumer.getAddress());
+
+        //开启子线程保存本地数据
+        Thread saveThread = new Thread(saveRunnable);
+        saveThread.start();
+    }
+
+    Runnable saveRunnable = new Runnable() {
+        @Override
+        public void run() {
+            savaSharePre();
+        }
+    };
+
+    private void savaSharePre() {
+        //图片这里可能还存在问题，因为这个url是网上的，所以保存下来肯定也是加载不出来的，想想怎么将图片缓存下来保存在本地。2016.3.16
+        //将图片下载下来
+   //     BmobFile bmobFile = new BmobFile("head.png","",consumer.getImg().getFileUrl(getApplicationContext()));
+        final BmobFile bmobFile = consumer.getImg();
+        if (bmobFile != null){
+            bmobFile.download(getApplicationContext(), new DownloadFileListener() {
+                @Override
+                public void onSuccess(String s) {
+                    Log.i("lgq","下载完成."+s+"path:"+bmobFile.getFilename());
                 }
-                tv_nickname.setText(own.getName());
-                tv_signature.setText(own.getSignature());
-                tv_phone.setText(own.getPhone());
-                tv_address.setText(own.getAddress());
 
-                savaSharePre(own);
-            }
-            private void savaSharePre(Consumer consumer) {
-                //图片这里可能还存在问题，因为这个url是网上的，所以保存下来肯定也是加载不出来的，想想怎么将图片缓存下来保存在本地。2016.3.16
-                SharePreUtils.setSharePre(getApplicationContext(), Constance.imgHeadPath, consumer.getImg().getFileUrl(getApplicationContext()));
-                SharePreUtils.setSharePre(getApplicationContext(), Constance.nickname, consumer.getName());
-                SharePreUtils.setSharePre(getApplicationContext(), Constance.signature, consumer.getSignature());
-                SharePreUtils.setSharePre(getApplicationContext(), Constance.phone, consumer.getPhone());
-                SharePreUtils.setSharePre(getApplicationContext(), Constance.address, consumer.getAddress());
-            }
+                @Override
+                public void onFailure(int i, String s) {
+                    Log.i("lgq","下载失败:"+i+s);
+                }
+            });
+        }
+       /* if (consumer.getImg() != null){
 
-            @Override
-            public void onError(int i, String s) {
-
-            }
-        });
+        }else{
+            SharePreUtils.setSharePre(this, Constance.imgHeadPath, "");
+        }*/
+   //     SharePreUtils.setSharePre(this, Constance.imgHeadPath, bmobFile.getFileUrl(getApplicationContext()));
+        SharePreUtils.setSharePre(this, Constance.nickname, consumer.getName());
+        SharePreUtils.setSharePre(this, Constance.signature, consumer.getSignature());
+        SharePreUtils.setSharePre(this, Constance.phone, consumer.getPhone());
+        SharePreUtils.setSharePre(this, Constance.address, consumer.getAddress());
     }
 
     @Override
@@ -179,30 +229,34 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
                 selectPhoto();
                 break;
             case R.id.rl_nickname:
-                tag.putString("nickname", "nickname");
+                tag.putString(Constance.nickname, Constance.nickname);
                 intent.putExtras(tag);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
             case R.id.rl_signature:
-                tag.putString("signature", "signature");
+                tag.putString(Constance.signature, Constance.signature);
                 intent.putExtras(tag);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
             case R.id.rl_phone:
-                tag.putString("phone", "phone");
+                tag.putString(Constance.phone,Constance.phone);
                 intent.putExtras(tag);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
             case R.id.rl_address:
-                tag.putString("address", "address");
+                tag.putString(Constance.address, Constance.address);
                 intent.putExtras(tag);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in_from_right,R.anim.out_to_left);
                 break;
         }
     }
 
     private void selectPhoto() {
-        CharSequence[] items = {"相册", "相机"};
+        CharSequence[] items = {getString(R.string.photo), getString(R.string.camera)};
         new AlertDialog.Builder(this)
                 .setTitle("选择图片来源")
                 .setItems(items, new DialogInterface.OnClickListener() {
@@ -228,7 +282,7 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.i("lgq","onActivityResult");
         if (requestCode == SELECT_PICTURE) {
             if (data != null) {
                 //取得返回的Uri,基本上选择照片的时候返回的是以Uri形式，但是在拍照中有得机子呢Uri是空的，所以要特别注意
@@ -303,37 +357,83 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
     }
 
     private void uploadImg(String path) {
-        BmobFile bmobFile = new BmobFile(new File(path));
+        final BmobFile bmobFile = new BmobFile(new File(path));
         //保存图片路径到SharePre
-        SharePreUtils.setSharePre(this, "imgHeadPath", path);
+        SharePreUtils.setSharePre(this,Constance.imgHeadPath, path);
+        Log.i("lgq", "uploadImg");
 
-        consumer.setImg(bmobFile);
-        bmobFile.uploadblock(getApplicationContext(), new UploadFileListener() {
+        bmobFile.uploadblock(getApplication(), new UploadFileListener() {
             @Override
             public void onSuccess() {
-                ToastUtils.showToast(getApplicationContext(), "上传数据成功", Toast.LENGTH_SHORT);
-            }
+                //保存图片
+                consumer.setImg(bmobFile);
 
-            @Override
-            public void onProgress(Integer value) {
-                super.onProgress(value);
+                ToastUtils.showToast(getApplication(), "上传成功", Toast.LENGTH_SHORT);
             }
 
             @Override
             public void onFailure(int i, String s) {
-                ToastUtils.showToast(getApplicationContext(), "上传数据失败" + i, Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getApplication(), "上传失败" + i + ":" + s, Toast.LENGTH_SHORT);
             }
         });
 
     }
 
-    private void updateData() {
-        FindByEmailServer server = new FindByEmailServer();
-        String objectId = server.findIdByEmail(this);
-        Log.i("lgq", "getID:::" +objectId);
-        BmobFile bmobFile = new BmobFile(new File(SharePreUtils.getEmailPre(this, Constance.imgHeadPath, "")));
-        consumer.setImg(bmobFile);
+    //处理业务
+    private void consumerServer() {
+        //初始化业务
+        ConsumerServers consumerServers = new ConsumerServers(this);
+        consumerServers.setSelectByIdIDataCallBack(selectIDataCallBack);
+        //实现业务
+        consumerServers.selectByEmail();
+    }
 
+    //业务实现回调
+    IDataCallBack<Consumer> selectIDataCallBack = new IDataCallBack<Consumer>() {
+        @Override
+        public void dataOnsuccess(List<Consumer> objects) {
+            for (Consumer object : objects) {
+                Log.i("lgq", "objname:" + object.getName() + "SIZE:"+objects.size()+"OBjId"+objects.get(0).getObjectId());
+            }
+            objectId = objects.get(0).getObjectId();
+            consumer = objects.get(0);
+            ToastUtils.showToast(getApplication(), "加载成功...", Toast.LENGTH_SHORT);
+            updateData();
+        }
+
+        @Override
+        public void dataOnEmpty() {
+            ToastUtils.showToast(getApplication(), "loading empty", Toast.LENGTH_SHORT);
+        }
+
+        @Override
+        public void dataOnError(int code, String msg) {
+            ToastUtils.showToast(getApplication(), "loading error:" + code + ":" + msg, Toast.LENGTH_SHORT);
+        }
+    };
+
+    Runnable myRunable = new Runnable() {
+        @Override
+        public void run() {
+            Log.i("lgq","run()");
+            consumerServer();
+        }
+    };
+
+    //更新数据
+    private void updateData() {
+        Log.i("lgq", "getID:::" + objectId+SharePreUtils.getEmailPre(this, Constance.imgHeadPath, ""));
+        /* BmobFile bmobFile = new BmobFile(new File(SharePreUtils.getEmailPre(this, Constance.imgHeadPath, "")));
+        consumer.setImg(bmobFile);*/
+        //文件上传的顺序是，先
+        consumer.setName(SharePreUtils.getEmailPre(this, Constance.nickname, ""));
+        consumer.setSignature(SharePreUtils.getEmailPre(this, Constance.signature, ""));
+        consumer.setPhone(SharePreUtils.getEmailPre(this, Constance.phone, ""));
+        Log.i("lgq","address:"+SharePreUtils.getEmailPre(this, Constance.address, ""));
+        consumer.setAddress(SharePreUtils.getEmailPre(this, Constance.address, ""));
+        if (objectId == null){
+            return;
+        }
         consumer.update(getApplicationContext(), objectId, new UpdateListener() {
             @Override
             public void onSuccess() {
@@ -342,7 +442,7 @@ public class OwerDetailsAct extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailure(int i, String s) {
-                ToastUtils.showToast(getApplicationContext(), "更改数据失败" + i, Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getApplicationContext(), "更改数据失败..." + i+s, Toast.LENGTH_SHORT);
             }
         });
     }

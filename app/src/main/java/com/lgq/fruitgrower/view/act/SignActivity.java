@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Consumer;
+import com.lgq.fruitgrower.model.beans.Pubilsh;
 import com.lgq.fruitgrower.model.beans.UserLogin;
 import com.lgq.fruitgrower.view.base.BaseAct;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
@@ -25,6 +26,7 @@ public class SignActivity extends BaseAct {
     private TextView email;
     private TextView password;
     private Button btn_sign;
+    private UserLogin userLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class SignActivity extends BaseAct {
         password = (TextView) findViewById(R.id.password);
         btn_sign = (Button) findViewById(R.id.btn_sign);
 
+        userLogin = new UserLogin();
         btn_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,8 +53,6 @@ public class SignActivity extends BaseAct {
     }
 
     public void btnSignOnclick() {
-
-        UserLogin userLogin = new UserLogin();
         //设置邮箱
         if (email.getText().toString().isEmpty()) {
             ToastUtils.showToast(this, "请输入邮箱", Toast.LENGTH_SHORT);
@@ -75,24 +76,35 @@ public class SignActivity extends BaseAct {
         userLogin.setPassword(password.getText().toString());
         //注册
 
-        userLogin.signUp(this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-                //save email to consumer form if  login success
-                saveEtoC(email.getText().toString());
-                intent2Activity(LoginActivity.class);
-                ToastUtils.showToast(getApplicationContext(), "注册成功，请到邮箱验证！", Toast.LENGTH_LONG);
-                finish();
-            }
+        Thread thread = new Thread(Myrunable);
+        thread.start();
 
-            @Override
-            public void onFailure(int i, String s) {
-                ToastUtils.showToast(getApplicationContext(), "注册失败" + i, Toast.LENGTH_SHORT);
-                Log.i("lgq", "sss+++" + s);
-            }
-        });
+        intent2Activity(LoginActivity.class);
+        ToastUtils.showToast(getApplicationContext(), "注册成功，请到邮箱验证！", Toast.LENGTH_LONG);
+        finish();
+
 
     }
+
+    //耗时间任务
+    Runnable Myrunable = new Runnable() {
+        @Override
+        public void run() {
+            userLogin.signUp(getApplicationContext(), new SaveListener() {
+                @Override
+                public void onSuccess() {
+                    //save email to consumer form if  login success
+                    saveEtoC(email.getText().toString());
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    ToastUtils.showToast(getApplicationContext(), "注册失败" + i+s, Toast.LENGTH_SHORT);
+                    Log.i("lgq", "sss+++" + s);
+                }
+            });
+        }
+    };
 
     private void saveEtoC(String emails){
         Consumer consumer = new Consumer();
@@ -101,7 +113,7 @@ public class SignActivity extends BaseAct {
         consumer.save(this, new SaveListener() {
             @Override
             public void onSuccess() {
-                Log.i("lgq","save email success");
+                Log.i("lgq","save consumer email success");
             }
 
             @Override
@@ -121,8 +133,7 @@ public class SignActivity extends BaseAct {
 
     @Override
     public void onBackPressed() {
-        intent2Activity(LoginActivity.class);
         super.onBackPressed();
-        finish();
+        overridePendingTransition(R.anim.out_to_left,R.anim.in_from_right);
     }
 }

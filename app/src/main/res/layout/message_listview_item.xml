@@ -6,15 +6,15 @@
     <LinearLayout
         android:id="@+id/ll_userinfo"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="@dimen/listview_item_lr_height"
         android:orientation="horizontal"
-        android:padding="8dp" >
+        android:padding="@dimen/listview_item_lr_padding" >
 
         <ImageView
 
             android:id="@+id/iv_avatar"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="@dimen/listview_item_img_width"
+            android:layout_height="@dimen/listview_item_img_height"
             android:layout_gravity="center_vertical"
             android:scaleType="centerCrop"
             android:src="@android:drawable/ic_menu_gallery" />
@@ -23,8 +23,8 @@
             android:id="@+id/rl_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp" >
+            android:paddingLeft="@dimen/listview_item_rl_pdleft"
+            android:paddingTop="@dimen/listview_item_rl_pdtop" >
 
             <TextView
                 android:id="@+id/tv_subhead"
@@ -39,7 +39,7 @@
                 android:layout_below="@id/tv_subhead"
                 android:layout_marginTop="5dp"
                 android:text="没错,我就是油坊桥吴彦祖"
-                android:textColor="#b2b2b2" />
+                android:textColor="@color/view_line" />
 
             <TextView
                 android:id="@+id/tv_data"

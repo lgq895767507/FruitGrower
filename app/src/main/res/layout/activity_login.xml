@@ -20,7 +20,7 @@
                     android:textSize="@dimen/txtsize_subhead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="登陆"/>
+                    android:text="@string/title_activity_login"/>
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
 

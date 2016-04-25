@@ -7,13 +7,13 @@
     <com.lgq.fruitgrower.view.widget.WrapHeightGridView
         android:id="@+id/gv_images"
         style="@style/GridViewImages"
-        android:layout_width="272dp" />
+        android:layout_width="@dimen/status_image_gv_width" />
 
     <ImageView
         android:id="@+id/iv_image"
         android:scaleType="centerCrop"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/status_image_img_width"
+        android:layout_height="@dimen/status_image_img_height"
         android:visibility="gone" />
 
 </FrameLayout>

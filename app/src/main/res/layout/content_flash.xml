@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_flash"
-    tools:context="com.lgq.fruitgrower.view.act.FlashActivity">
+    tools:context="com.lgq.fruitgrower.view.act.FlashActivity"
+    android:background="@mipmap/welcome1080">
 
-    <ImageView
+   <!-- <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/img_welcome"
-        android:src="@mipmap/img_welcome"/>
+        android:src="@mipmap/welcome1080"/>-->
 </RelativeLayout>

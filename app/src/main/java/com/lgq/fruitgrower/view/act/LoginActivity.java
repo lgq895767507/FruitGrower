@@ -32,7 +32,7 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
     private TextView password;
     private Button email_sign_in_button;
 
-    private TextView test_web;
+  //  private TextView test_web;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,11 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
         password = (TextView) findViewById(R.id.password);
         email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
 
-        test_web = (TextView) findViewById(R.id.test_web);
+      //  test_web = (TextView) findViewById(R.id.test_web);
 
-        String webLinkText = "<a href=http://www.baidu.com>百度一下</a>" ;
-        test_web.setText(Html.fromHtml(webLinkText));
-        test_web.setMovementMethod(LinkMovementMethod.getInstance());
+     //   String webLinkText = "<a href=http://www.baidu.com>百度一下</a>" ;
+     //   test_web.setText(Html.fromHtml(webLinkText));
+     //   test_web.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 
@@ -71,7 +71,7 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
                 //设置字体颜色的改变
                 btn_sign_email.setTextColor(Color.GRAY);
                 intent2Activity(SignActivity.class);
-                finish();
+
                 break;
             case R.id.btn_sign_phone:
                 btn_sign_phone.setTextColor(Color.GREEN);
@@ -114,22 +114,21 @@ public class LoginActivity extends BaseAct implements View.OnClickListener{
 
                 //change aoto login values
                 setSharePre();
-
                 finish();
             }
 
             @Override
             public void onFailure(int i, String s) {
-                ToastUtils.showToast(getApplicationContext(), "登陆失败:"+i, Toast.LENGTH_SHORT);
+                ToastUtils.showToast(getApplicationContext(), "登陆失败:用户名或者密码不对"+s+i, Toast.LENGTH_SHORT);
             }
         });
     }
 
     private void setSharePre(){
-        SharedPreferences sharedPreferences = getSharedPreferences("password", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constance.password, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor  = sharedPreferences.edit();
-        editor.putBoolean("LOGINVERIFIED", true );
-        editor.putString("LOGINEMAIL", email.getText().toString());
+        editor.putBoolean(Constance.LOGINVERIFIED, true );
+        editor.putString(Constance.LOGINEMAIL, email.getText().toString());
         editor.commit();
     }
 }

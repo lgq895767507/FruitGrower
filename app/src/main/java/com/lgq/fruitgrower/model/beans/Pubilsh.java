@@ -11,12 +11,42 @@ import cn.bmob.v3.datatype.BmobFile;
  */
 public class Pubilsh extends BmobObject implements Serializable {
 
-    String content;
-    BmobFile photo;
-    String coment;
-    Boolean isFarmer;
-    String name;
-    String comtent_name;
+    private String content;
+    private BmobFile photo;
+    private String coment;
+    private Boolean isFarmer;
+    private String name;
+    private String comtent_name;
+    private String email;
+    private BmobFile img;
+    private Integer liked;
+
+    public Integer getLiked() {
+        return liked;
+    }
+
+    public void setLiked(Integer liked) {
+        this.liked = liked;
+    }
+
+    public BmobFile getImg() {
+        if (img == null) {
+            return null;
+        }
+        return img;
+    }
+
+    public void setImg(BmobFile img) {
+        this.img = img;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getContent() {
         return content;
@@ -27,7 +57,7 @@ public class Pubilsh extends BmobObject implements Serializable {
     }
 
     public BmobFile getPhoto() {
-        if (photo == null){
+        if (photo == null) {
             return null;
         }
         return photo;

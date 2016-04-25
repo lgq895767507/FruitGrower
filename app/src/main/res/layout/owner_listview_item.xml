@@ -5,25 +5,25 @@
     android:orientation="vertical" >
 
     <View
-        android:background="#d3d4d4"
+        android:background="@color/bg_light"
         android:id="@+id/v_divider"
         android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="8dp" />
+        android:layout_height="@dimen/owner_item_view_height" />
 
     <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/owner_item_lr_height"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp" >
+        android:paddingLeft="@dimen/owner_item_lr_pdleft"
+        android:paddingRight="@dimen/owner_item_lr_pdright" >
 
         <ImageView
             android:id="@+id/iv_left"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/owner_item_img_width"
+            android:layout_height="@dimen/owner_item_img_height"
             android:src="@android:drawable/ic_menu_gallery"/>
 
         <TextView
@@ -31,27 +31,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_subhead"
 
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/owner_item_tv_marleft"
             android:text="微博等级" />
 
         <TextView
             android:id="@+id/tv_caption"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/owner_item_view_height"
             android:layout_weight="1"
             android:text="" />
 
         <ImageView
             android:id="@+id/img_enter"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_media_play"/>
+            android:layout_width="@dimen/owner_item_img_width"
+            android:layout_height="@dimen/owner_item_img_height"
+            android:src="@mipmap/rightarrow"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#b2b2b2"/>
+        android:layout_height="@dimen/view_line"
+        android:background="@color/view_line"/>
 
 </LinearLayout>
