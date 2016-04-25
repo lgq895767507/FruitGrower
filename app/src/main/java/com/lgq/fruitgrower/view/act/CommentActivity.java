@@ -89,7 +89,6 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
                 sendThread.start();
 
                 finish();
-                overridePendingTransition(R.anim.out_to_left,R.anim.in_from_right);
                 break;
         }
     }

@@ -140,7 +140,6 @@ public class PublicActivity extends AppCompatActivity implements RadioGroup.OnCh
         intent = new Intent(getApplication(), MainActivity.class);
         setResult(RESULT_OK, intent);
         super.onBackPressed();
-        overridePendingTransition(R.anim.out_to_up,R.anim.in_from_down);
     }
 
     @Override

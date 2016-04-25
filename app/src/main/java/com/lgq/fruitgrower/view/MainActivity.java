@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 bundle.putBoolean("farmer", true);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
-                overridePendingTransition(R.anim.in_from_down,R.anim.out_to_up);
+
                 if (rela_layout.getVisibility() == View.VISIBLE) {
                     rela_layout.setVisibility(View.GONE);
                 }
@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 bundle.putBoolean("farmer", false);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
-                overridePendingTransition(R.anim.in_from_down, R.anim.out_to_up);
+
                 if (rela_layout.getVisibility() == View.VISIBLE) {
                     rela_layout.setVisibility(View.GONE);
                 }
