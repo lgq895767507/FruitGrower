@@ -218,4 +218,5 @@
 
     <string name="title_packageName">果农</string>
     <string name="title_activity_owner_public_list">我发布的</string>
+    <string name="title_activity_comment_details">CommentDetailsAct</string>
 </resources>
