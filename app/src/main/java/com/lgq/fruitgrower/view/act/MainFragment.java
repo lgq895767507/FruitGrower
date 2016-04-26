@@ -183,6 +183,8 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
 
     @Override
     public void onRootViewClick(int position) {
+        //显示具体的消息内容
+        intent2Activity(CommentDetailsAct.class);
         Log.i("lgq","position++++"+position);
     }
 
