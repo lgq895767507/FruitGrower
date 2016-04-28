@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/card_view_tv_martop"
             android:padding="@dimen/card_view_tv_padding"
-            android:maxEms="80"
+            android:maxLines="5"
             android:ellipsize="end"
             android:text="从前有个人来到了油坊桥,后来他变成了吴彦祖" />
 

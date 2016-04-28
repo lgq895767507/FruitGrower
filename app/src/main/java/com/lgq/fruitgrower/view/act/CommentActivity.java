@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.lgq.fruitgrower.R;
 import com.lgq.fruitgrower.model.beans.Pubilsh;
 import com.lgq.fruitgrower.view.MainActivity;
+import com.lgq.fruitgrower.view.utils.SharePreUtils;
 import com.lgq.fruitgrower.view.utils.ToastUtils;
 
 import cn.bmob.v3.listener.UpdateListener;
@@ -98,6 +99,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         public void run() {
             Pubilsh pubilsh = new Pubilsh();
             pubilsh.setComent(et_comment.getText().toString());
+            pubilsh.setComtent_name(SharePreUtils.getEmailPre(getApplicationContext()));
             pubilsh.update(getApplicationContext(), bundle.getString("ObjectId"), new UpdateListener() {
                 @Override
                 public void onSuccess() {

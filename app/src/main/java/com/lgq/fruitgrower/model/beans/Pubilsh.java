@@ -22,6 +22,9 @@ public class Pubilsh extends BmobObject implements Serializable {
     private Integer liked;
 
     public Integer getLiked() {
+        if (liked == null){
+            return 0;
+        }
         return liked;
     }
 

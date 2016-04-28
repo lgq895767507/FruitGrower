@@ -55,23 +55,6 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
         return view;
     }
 
-  /*  @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-*/
-    /*@Override
-        public void onHiddenChanged(boolean hidden) {
-            super.onHiddenChanged(hidden);
-            if (!hidden) {
-                Log.i("lgq1","ownerFragment");
-                //设置SwipeRefreshLayout组件开始显示刷新球
-                recyclerViewAndSwipeRefreshLayout.getSwipeRefreshLayout().setRefreshing(true);
-                //直接调用业务
-                dataServers.selectByEmail();
-            }
-        }
-    */
     private void initView() {
   //     recycle_view = (RecyclerView) view.findViewById(R.id.recycle_view);
   //     layoutManager = new LinearLayoutManager(getContext());
@@ -184,7 +167,15 @@ public class MainFragment extends BaseFragment implements StatusAdapter.MyViewHo
     @Override
     public void onRootViewClick(int position) {
         //显示具体的消息内容
-        intent2Activity(CommentDetailsAct.class);
+        Intent intent = new Intent(getContext(),CommentDetailsAct.class);
+        if (adapter.getDatas().get(position).getObjectId() == null){
+            Log.i("lgq","objectId == null");
+            return;
+        }
+        intent.putExtra("ONOBJECTID",adapter.getDatas().get(position).getObjectId());
+        startActivity(intent);
+
+      //  intent2Activity(CommentDetailsAct.class);
         Log.i("lgq","position++++"+position);
     }
 

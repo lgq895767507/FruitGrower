@@ -355,20 +355,24 @@ public class OwerDetailsAct extends BaseAct implements View.OnClickListener {
     private void uploadImg(String path) {
         final BmobFile bmobFile = new BmobFile(new File(path));
         //保存图片路径到SharePre
+        //sava img
+        consumer.setImg(bmobFile);
+
         SharePreUtils.setSharePre(this,Constance.imgHeadPath, path);
         Log.i("lgq", "uploadImg");
 
         bmobFile.uploadblock(getApplication(), new UploadFileListener() {
             @Override
             public void onSuccess() {
-                //保存图片
-                consumer.setImg(bmobFile);
-
+/*                //保存图片
+                consumer.setImg(bmobFile);*/
+                Log.i("lgq", "onSuccess img");
                 ToastUtils.showToast(getApplication(), "上传成功", Toast.LENGTH_SHORT);
             }
 
             @Override
             public void onFailure(int i, String s) {
+                Log.i("lgq", "onFailure img"+i+s);
                 ToastUtils.showToast(getApplication(), "上传失败" + i + ":" + s, Toast.LENGTH_SHORT);
             }
         });
@@ -456,10 +460,14 @@ public class OwerDetailsAct extends BaseAct implements View.OnClickListener {
 
     //更新数据
     private void updateData() {
-        Log.i("lgq", "getID:::" + objectId+SharePreUtils.getEmailPre(this, Constance.imgHeadPath, ""));
-        /* BmobFile bmobFile = new BmobFile(new File(SharePreUtils.getEmailPre(this, Constance.imgHeadPath, "")));
-        consumer.setImg(bmobFile);*/
-        //文件上传的顺序是，先
+        //先上传
+        uploadImg(SharePreUtils.getEmailPre(this, Constance.imgHeadPath, ""));
+
+        Log.i("lgq", "getID:::" + objectId + SharePreUtils.getEmailPre(this, Constance.imgHeadPath, ""));
+  /*      BmobFile bmobFile = new BmobFile(new File("/storage/emulated/0/LEWA/Gallery/预置美图/plant.jpg"));*/
+        Log.i("lgq","bmobFile.tostring"+consumer.getImg());
+
+        //文件上传的顺序是，先上传文件，再保存
         consumer.setName(SharePreUtils.getEmailPre(this, Constance.nickname, ""));
         consumer.setSignature(SharePreUtils.getEmailPre(this, Constance.signature, ""));
         consumer.setPhone(SharePreUtils.getEmailPre(this, Constance.phone, ""));

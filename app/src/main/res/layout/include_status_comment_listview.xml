@@ -5,33 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <ListView
+    <com.lgq.fruitgrower.view.widget.WrapHeightListView
         android:id="@+id/commnet_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/view_line"
-            android:background="@color/divider_gray" />
-
-        <include layout="@layout/include_avatar" />
-
-        <TextView
-            android:id="@+id/tv_content"
-            style="@style/TextViewBody"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/card_view_tv_martop"
-            android:ellipsize="end"
-            android:maxEms="80"
-            android:padding="@dimen/card_view_tv_padding"
-            android:text="从前有个人来到了油坊桥,后来他变成了吴彦祖" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/view_line"
-            android:background="@color/divider_gray" />
-    </ListView>
+    </com.lgq.fruitgrower.view.widget.WrapHeightListView>
 </LinearLayout>
